@@ -1,10 +1,9 @@
-// importation d'express
 const express = require('express');
 const mongoose = require('mongoose');
 
 const app = express();
 
-mongoose.connect('mongodb://127.0.0.1:27017/dev')
+mongoose.connect('mongodb://127.0.0.1:27017/shoppinglist')
 .then(() => console.log('Connection à MongoDB réussie'))
 .catch(() => console.log('Connection à MongoDB échouée'))
 
