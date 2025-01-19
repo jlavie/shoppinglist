@@ -1,0 +1,12 @@
+<header>
+    <h2>Liste des ingredients</h2>
+  </header>
+  
+  <ul>
+    @for (ingredient of (ingredients()); track ingredient.id) {
+      <li>
+        <app-ingredient-item [ingredient]="ingredient" />
+      </li>
+    }
+  </ul>
+  

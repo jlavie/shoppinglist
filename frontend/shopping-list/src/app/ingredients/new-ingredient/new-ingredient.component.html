@@ -1,0 +1,13 @@
+<form (ngSubmit)="onAddIngredient(title.value, picto.value)" #form class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label for="title">Title</mat-label>
+    <input matInput placeholder="Ex. Pizza" value="Sushi" type="text" id="title" name="title" #title>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label for="picto">Picto</mat-label>
+    <input matInput placeholder="Ex. Pizza" value="Sushi" type="text" id="picto" name="picto" #picto>
+  </mat-form-field>
+  <div class="example-button-row">
+    <button mat-flat-button>Save</button>
+  </div>
+</form>
