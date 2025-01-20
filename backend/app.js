@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+const ingredientRoutes = require('./routes/ingredient');
+
 const app = express();
 
 mongoose.connect('mongodb://127.0.0.1:27017/shoppinglist')
@@ -15,6 +17,8 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
+
+app.use('/api/ingredient', ingredientRoutes);
 
 app.get("/", (req, res) => {
     res.send("test")
