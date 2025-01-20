@@ -3,7 +3,7 @@
   </header>
   
   <ul>
-    @for (ingredient of (ingredients()); track ingredient.id) {
+    @for (ingredient of (ingredients()); track ingredient._id) {
       <li>
         <app-ingredient-item [ingredient]="ingredient" />
       </li>

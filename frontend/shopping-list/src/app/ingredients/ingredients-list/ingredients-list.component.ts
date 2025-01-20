@@ -19,7 +19,12 @@ export class IngredientsListComponent implements OnInit {
   ngOnInit(): void {
     const subsription = this.ingredientsService.loadAllIngredients().subscribe({
       next: (res) => {
-        console.log(res.ingredients)
+        // res.ingredients.forEach(item => {
+        //   console.log(item.title);
+        //   console.log(item._id);
+        // });
+        // console.log('_id récupéré :', res._id);
+        // console.log(res.ingredients)
         this.ingredients.set(res.ingredients) 
       }
     });
