@@ -18,7 +18,12 @@ export class NewIngredientComponent {
   private ingredientService = inject(IngredientsService);
 
   onAddIngredient(title: string, picto: string) {
-    this.ingredientService.addIngredient({title, picto});
+  //this.ingredientService.addIngredient({title, picto});
+    this.ingredientService.addIngredient({title, picto})
+    .subscribe({
+      next: (res) => console.log(res)
+    });
+
     this.formEl()?.nativeElement.reset();
   }
 }

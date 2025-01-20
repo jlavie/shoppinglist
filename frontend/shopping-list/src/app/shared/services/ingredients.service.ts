@@ -1,20 +1,35 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Ingredient } from '../../ingredients/ingredient.model';
+import { HttpClient } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IngredientsService {
   private ingredients = signal<Ingredient[]>([]);
+  private httpClient = inject(HttpClient);
 
-  allIngredients = this.ingredients.asReadonly();
+  loadAllIngredients() {
+    return this.fetchIngredients(
+      'http://localhost:3200/api/ingredient/all',
+      'Something went wrong. Please try again later.'
+    )
+  }
 
-  addIngredient(ingredientData: {title: string, picto: string}) {
-    const newIngredient: Ingredient = {
-      ...ingredientData, 
-      id: Math.random().toString()
-    };
+  addIngredient(ingredientData: {title: string, picto: string}):Observable<Ingredient | any> {
+    return this.httpClient
+      .post('http://localhost:3200/api/ingredient', ingredientData)
+      .pipe(catchError((error) => {
+        return throwError(() => new Error(error));
+      }))
+  }
 
-    this.ingredients.update((oldIngredients) => [...oldIngredients, newIngredient]);
+  private fetchIngredients(url: string, errorMessage: string) {
+    return this.httpClient
+      .get<{ingredients: Ingredient[]}>(url)
+      .pipe(catchError((error) => {
+        return throwError(() => new Error(errorMessage));
+      }))
   }
 }
