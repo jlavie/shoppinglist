@@ -6,6 +6,12 @@ exports.getAll = (req, res) => {
         .catch(error => res.status(400).json({error}));
 }
 
+exports.getOne = (req, res) => {
+    Ingredient.findOne({_id: req.params.id})
+        .then(ingredient => res.status(200).json(ingredient))
+        .catch(error => res.status(400).json(error));
+}
+
 exports.addIngredient = (req, res) => {
     console.log(req.body)
     delete req.body._id;
@@ -16,4 +22,10 @@ exports.addIngredient = (req, res) => {
     ingredient.save()
         .then(() => res.status(200).json({message: 'Ingrédient ajouté en base'}))
         .catch(error => res.status(400).json({error}));
+}
+
+exports.deleteOne = (req, res) => {
+    Ingredient.deleteOne({_id: req.params.id})
+        .then(ingredient => res.status(200).json(ingredient))
+        .catch(error => res.status(400).json(error));
 }

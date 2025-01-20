@@ -33,4 +33,15 @@ export class IngredientsListComponent implements OnInit {
       subsription.unsubscribe();
     })
   }
+
+  onRemoveIngredient(ingredient: Ingredient) {
+    const subscription = this.ingredientsService.removeIngredient(ingredient)
+      .subscribe({
+        next: (resData) => console.log(resData),
+      });
+
+      this.destroyRef.onDestroy(() => {
+        subscription.unsubscribe();
+      })
+  }  
 }

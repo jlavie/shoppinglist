@@ -17,6 +17,14 @@ export class IngredientsService {
     )
   }
 
+  getIngredient(ingredient: Ingredient) {
+    return this.httpClient
+      .get('http://localhost:3200/api/ingredient/' + ingredient._id)
+      .pipe(
+        catchError(error => { return throwError(() => error)})
+      )
+  }
+
   addIngredient(ingredientData: {title: string, picto: string}):Observable<Ingredient | any> {
     return this.httpClient
       .post('http://localhost:3200/api/ingredient', ingredientData)
@@ -32,4 +40,14 @@ export class IngredientsService {
         return throwError(() => new Error(errorMessage));
       }))
   }
+
+  removeIngredient(ingredient: Ingredient) {
+    return this.httpClient
+      .delete('http://localhost:3200/api/ingredient/' + ingredient._id)
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error)
+        })
+      )
+    }
 }

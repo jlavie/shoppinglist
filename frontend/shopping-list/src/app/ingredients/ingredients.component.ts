@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { IngredientsListComponent } from "./ingredients-list/ingredients-list.component";
 import { NewIngredientComponent } from "./new-ingredient/new-ingredient.component";
+import { Ingredient } from './ingredient.model';
 
 @Component({
   selector: 'app-ingredients',
@@ -8,5 +9,7 @@ import { NewIngredientComponent } from "./new-ingredient/new-ingredient.componen
   templateUrl: './ingredients.component.html',
   styleUrl: './ingredients.component.css'
 })
-export class IngredientsComponent {}
+export class IngredientsComponent {
+  selectIngredient = output<Ingredient>();
+}
 

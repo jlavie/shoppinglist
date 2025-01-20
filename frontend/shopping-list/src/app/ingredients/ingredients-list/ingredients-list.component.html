@@ -5,6 +5,7 @@
   <ul>
     @for (ingredient of (ingredients()); track ingredient._id) {
       <li>
+        <span class="close" (click)="onRemoveIngredient(ingredient)" >X</span>
         <app-ingredient-item [ingredient]="ingredient" />
       </li>
     }
