@@ -20,7 +20,7 @@ exports.addIngredient = (req, res) => {
     })
 
     ingredient.save()
-        .then(() => res.status(200).json({message: 'Ingrédient ajouté en base'}))
+        .then((ingredient) => res.status(200).json({ingredient}))
         .catch(error => res.status(400).json({error}));
 }
 

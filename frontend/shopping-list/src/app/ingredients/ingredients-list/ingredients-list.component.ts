@@ -26,6 +26,9 @@ export class IngredientsListComponent implements OnInit {
         // console.log('_id récupéré :', res._id);
         // console.log(res.ingredients)
         this.ingredients.set(res.ingredients) 
+        console.log(res.ingredients)
+        console.log(this.ingredients())
+
       }
     });
 
@@ -37,7 +40,12 @@ export class IngredientsListComponent implements OnInit {
   onRemoveIngredient(ingredient: Ingredient) {
     const subscription = this.ingredientsService.removeIngredient(ingredient)
       .subscribe({
-        next: (resData) => console.log(resData),
+        next: () => {
+          const prevIngredients = this.ingredients();
+          if(prevIngredients.some((p) => p._id === ingredient._id)) {
+            this.ingredients.set(prevIngredients.filter(p => p._id !== ingredient._id))
+          }
+        },
       });
 
       this.destroyRef.onDestroy(() => {

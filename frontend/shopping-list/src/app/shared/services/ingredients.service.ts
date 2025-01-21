@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Ingredient } from '../../ingredients/ingredient.model';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,22 +26,40 @@ export class IngredientsService {
   }
 
   addIngredient(ingredientData: {title: string, picto: string}):Observable<Ingredient | any> {
+    const prevIngredients = this.ingredients();
+    console.log(prevIngredients)
     return this.httpClient
       .post('http://localhost:3200/api/ingredient', ingredientData)
-      .pipe(catchError((error) => {
-        return throwError(() => new Error(error));
-      }))
+      .pipe(
+        tap(response => {
+          console.log('Données reçues :', response)
+          console.log(this.ingredients())
+        }),
+        // map(response => this.ingredients.set(this.ingredients().shift())),
+        catchError((error) => {
+          return throwError(() => new Error(error));
+        })
+      )
   }
 
   private fetchIngredients(url: string, errorMessage: string) {
     return this.httpClient
       .get<{ingredients: Ingredient[]}>(url)
-      .pipe(catchError((error) => {
+      .pipe(
+        // map(res => this.ingredients.set(this.ingredients())),
+        catchError((error) => {
         return throwError(() => new Error(errorMessage));
       }))
   }
 
   removeIngredient(ingredient: Ingredient) {
+    const prevIngredients = this.ingredients();
+    console.log(prevIngredients)
+    console.log(ingredient)
+    if(prevIngredients.some((p) => p._id === ingredient._id)) {
+      this.ingredients.set(prevIngredients.filter(p => p._id !== ingredient._id))
+    }
+
     return this.httpClient
       .delete('http://localhost:3200/api/ingredient/' + ingredient._id)
       .pipe(
