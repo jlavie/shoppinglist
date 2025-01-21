@@ -1,0 +1,26 @@
+.list-wrapper {
+    grid-column-gap: 16px;
+    grid-row-gap: 16px;
+    flex-wrap: wrap;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-auto-columns: 1fr;
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.list-item {
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    text-align: center;
+    background-color: #0a03380d;
+    border-radius: 6px;
+    flex-direction: column;
+    width: 155px;
+    height: 100%;
+    padding: 4px;
+    display: flex;
+    position: relative;
+}
