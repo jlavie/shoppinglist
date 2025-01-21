@@ -2,15 +2,14 @@
 	display: flex;
 	background-color: white;
 	border-radius: 40px;
-	margin: 50px auto;
-	width: 400px;
+	margin: 12px auto;
 	box-shadow: 3px 3px 10px -3px grey;
 	overflow: hidden;
 }
 
 input {
 	all: unset;
-	flex-grow: 1;
+	width: 100%;
 	padding: 10px 20px;
 }
 

@@ -1,30 +1,30 @@
 <form (submit)="submit($event)" [formGroup]="formGroup">
-    <div class="form-field">
-        <label for="name">Name</label>
-        <input id="name" name="name" type="text" formControlName="name" />
+    <mat-form-field class="form-field">
+        <mat-label for="name">Name</mat-label>
+        <input matInput  id="name" name="name" type="text" formControlName="name" />
         @if (isFieldValid('name')) {
             @if (formGroup.get('name')?.hasError('required')) {
                 <div class="error">This field is required.</div>
             }
         }
-    </div>
-    <div class="form-field">
-        <label for="picto">Picto</label>
-        <input id="picto" name="picto" type="text" formControlName="picto" />
+    </mat-form-field>
+    <mat-form-field class="form-field">
+        <mat-label for="picto">Picto</mat-label>
+        <input matInput  id="picto" name="picto" type="text" formControlName="picto" />
         @if (isFieldValid('picto')) {
             @if (formGroup.get('picto')?.hasError('required')) {
                 <div class="error">This field is required.</div>
             }
         }
-    </div>
-    <div class="form-field">
-        <label for="category">Category</label>
-        <select id="category" name="category" formControlName="category">
+    </mat-form-field>
+    <mat-form-field class="form-field">
+        <mat-label for="category">Category</mat-label>
+        <mat-select id="category" name="category" formControlName="category">
             @for (cat of ingredientCategory; track cat) {
-                <option [value]="cat">{{cat}}</option>
+                <mat-option [value]="cat">{{cat}}</mat-option>
             }
-    </select>
-    </div>
-    <button type="submit" [disabled]="formGroup.invalid">Save</button>
+        </mat-select>
+    </mat-form-field>
+    <button mat-flat-button type="submit" [disabled]="formGroup.invalid">Save</button>
     <!-- <button (click)="name.setValue('Changed')">Set Name</button> -->
 </form>
