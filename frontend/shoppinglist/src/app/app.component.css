@@ -54,8 +54,8 @@
 
 
 @media screen and (max-width: 945px) {
-    .left-side {
-        display: none;
+    .wrapper {
+        flex-direction: column;
     }
 }
 
