@@ -9,10 +9,10 @@
         }
     </mat-form-field>
     <mat-form-field class="form-field">
-        <mat-label for="picto">Picto</mat-label>
-        <input matInput  id="picto" name="picto" type="text" formControlName="picto" />
-        @if (isFieldValid('picto')) {
-            @if (formGroup.get('picto')?.hasError('required')) {
+        <mat-label for="icon">Icon</mat-label>
+        <input matInput  id="icon" name="icon" type="text" formControlName="icon" />
+        @if (isFieldValid('icon')) {
+            @if (formGroup.get('icon')?.hasError('required')) {
                 <div class="error">This field is required.</div>
             }
         }

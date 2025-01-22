@@ -1,8 +1,10 @@
 <ul class="list-wrapper">
-    <li class="list-item">
-        <app-ingredient-item />
-    </li>
-    <li class="list-item">
-        <app-ingredient-item />
-    </li>
+    @for(ingredient of ingredients(); track ingredient._id) {
+        <li class="list-item">
+            <span class="close" (click)="onRemoveIngredient(ingredient)" >
+                <mat-icon aria-hidden="false" aria-label="delete ingredient" fontIcon="delete_forever"></mat-icon>
+            </span>
+            <app-ingredient-item [ingredient]="ingredient" />
+        </li>
+    }
 </ul>

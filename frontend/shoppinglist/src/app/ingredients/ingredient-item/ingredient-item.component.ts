@@ -8,5 +8,5 @@ import { Ingredient } from '../ingredient.model';
   styleUrl: './ingredient-item.component.css'
 })
 export class IngredientItemComponent {
-  ingredient = input<Ingredient>();
+  ingredient = input.required<Ingredient>();
 }
