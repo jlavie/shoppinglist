@@ -1,0 +1,15 @@
+<header></header>
+<div class="wrapper">
+  <div class="left-side">
+    <app-ingredient-search 
+      (searchValue)="handleResults($event)"
+    />
+    Search: {{search}} <br />
+
+    <app-ingredient-new />
+  </div>
+  <div class="main-container">
+    <app-ingredient-list />
+  </div>
+</div>
+<footer></footer>
