@@ -4,7 +4,9 @@
             <span class="close" (click)="onRemoveIngredient(ingredient)" >
                 <mat-icon aria-hidden="false" aria-label="delete ingredient" fontIcon="delete_forever"></mat-icon>
             </span>
-            <app-ingredient-item [ingredient]="ingredient" />
+            <a href="ingredient/{{ingredient._id}}">
+                <app-ingredient-item [ingredient]="ingredient" />
+            </a>
         </li>
     }
 </ul>
