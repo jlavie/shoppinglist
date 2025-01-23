@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { IngredientItemComponent } from '../ingredient-item/ingredient-item.component';
 import { IngredientsService } from '../ingredients.service';
 import { Ingredient } from '../ingredient.model';
@@ -12,36 +12,15 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class IngredientListComponent implements OnInit {
   private ingredientService = inject(IngredientsService);
-  private destroyRef = inject(DestroyRef);
 
-  ingredients = signal<Ingredient[]>([]);
+  ingredients = computed(() => this.ingredientService.ingredientsData());
   
   ngOnInit(): void {
-    const subscription = this.ingredientService.getAll()
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.ingredients.set(res.ingredients);
-        }
-      });
-
-    this.destroyRef.onDestroy(() => subscription.unsubscribe());
+    this.ingredientService.getAll();
   }
 
   onRemoveIngredient(ingredient: Ingredient) {
     const id = ingredient._id;
-    const subscription = this.ingredientService.delete(id)
-      .subscribe({
-        next: () => {
-          const prevIngredients = this.ingredients();
-          if(prevIngredients.some((p) => p._id === ingredient._id)) {
-            this.ingredients.set(prevIngredients.filter(p => p._id !== ingredient._id))
-          }
-        },
-      });
-
-      this.destroyRef.onDestroy(() => {
-        subscription.unsubscribe();
-      })
+    this.ingredientService.delete(id);
   }
 }

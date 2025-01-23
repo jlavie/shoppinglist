@@ -1,7 +1,7 @@
-import { Component, DestroyRef, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, throwError } from 'rxjs';
 import { IngredientCategory } from '../ingredient.utils';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,24 +21,18 @@ export class IngredientNewComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription | null = null;
   private fb = inject(FormBuilder);
   private ingredientService = inject(IngredientsService);
-  private destroyRef = inject(DestroyRef);
 
   formGroup = this.fb.group({
     name: ['',[Validators.required]],
     icon: ['',[Validators.required]],
     category: [IngredientCategory.VEGETABLE, [Validators.required]]
   })
-  // formGroup = new FormGroup({
-  //   name: new FormControl('',[Validators.required]),
-  //   icon: new FormControl('',[Validators.required]),
-  //   category: new FormControl(IngredientCategory.VEGETABLE, [Validators.required])
-  // })
+
   ingredientCategory = Object.values(IngredientCategory);
   ingerdientId = -1;
   ingredients = signal<Ingredient[]>([]);
 
   ngOnInit(): void {
-    console.log(this.ingredients());
     this.routeSubscription = this.route.params.subscribe( params => {
       if(params['id']) {this.ingerdientId = parseInt(params['id'])}
     })
@@ -50,25 +44,15 @@ export class IngredientNewComponent implements OnInit, OnDestroy {
 
   submit(event: Event) {
     event.preventDefault();
-    console.log(this.ingredients())
-    console.log(this.formGroup.value)
-    const subscription = this.ingredientService.add(this.formGroup.value)
-      .subscribe({
+    if(this.formGroup.valid) {
+      const newIngredient: any = this.formGroup.value;
+      this.ingredientService.add(newIngredient).subscribe({
         next: (res) => {
-          console.log(res)
-          console.log(res.ingredients)
-          console.log(this.ingredients())
-            const prevIngredients = this.ingredients();
-          // if(prevIngredients.some((p) => p._id === ingredient._id)) {
-          //   this.ingredients.set(prevIngredients.filter(p => p._id !== ingredient._id))
-          // }
+          this.ingredientService.addToSignal(res);
         },
-        error: err => console.log('Erreur lors de l\'enregistrement', err)
+        error: (err) => {return throwError(() => err)}
       })
-
-    this.destroyRef.onDestroy(() => {
-      subscription.unsubscribe();
-    })
+    }
   }
 
   isFieldValid(fieldName: string) {

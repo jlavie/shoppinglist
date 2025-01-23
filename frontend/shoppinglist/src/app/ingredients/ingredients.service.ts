@@ -1,7 +1,7 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal, DestroyRef } from '@angular/core';
 import { Ingredient } from './ingredient.model';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,22 +10,42 @@ export class IngredientsService {
   private ingredients = signal<Ingredient[]>([]);
   private http = inject(HttpClient);
   private url = 'http://localhost:3200/api/ingredient/';
+  private destroyRef = inject(DestroyRef);
 
-  getAll() {
-    return this.http
+
+  get ingredientsData() {
+    return this.ingredients.asReadonly();
+  }
+
+  addToSignal(newIngredient: any): void {
+    this.ingredients.update((ingredients) => [...ingredients, newIngredient.ingredient]);
+    console.log(newIngredient.ingredient)
+    console.log(this.ingredients())
+  }
+
+  getAll():void {
+    const subscription = this.http
       .get<{ingredients: Ingredient[]}>(this.url + 'all')
-      .pipe(
-        tap(response => {
-          console.log('Données reçues :', response)
-          console.log(this.ingredients())
-        }),
-        catchError(err => {return throwError(() => err)}))
+      .subscribe({
+        next: (data) => this.ingredients.set(data.ingredients),
+        error: (err) => {return throwError(() => err)}
+      })
+
+      this.destroyRef.onDestroy(() => {
+        subscription.unsubscribe();
+      })
   }
 
   getOne(id: string) {
-    return this.http
+    const subscription = this.http
       .get(this.url + id)
-      .pipe(catchError(err => {return throwError(() => err)}))
+      .subscribe({
+        error: (err) => {return throwError(() => err)}
+      })
+
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    })
   }
 
   delete(id: string) {
@@ -35,22 +55,20 @@ export class IngredientsService {
       this.ingredients.set(prevIngredients.filter(p => p._id !== id))
     }
 
-    return this.http
+    const subscription = this.http
       .delete(this.url + id)
-      .pipe(catchError((err) => {return throwError(() => err)}))
+      .subscribe({
+        error: (err) => {return throwError(() => err)}
+      })
+
+      
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    })
   }
 
-  add(ingredientData: any):Observable<Ingredient | any> {
-    console.log(ingredientData)
-    console.log(this.url)
-
+  add(ingredientData: Ingredient):Observable<Ingredient> {
     return this.http
-      .post(this.url, ingredientData)
-      .pipe(
-        tap(response => {
-          console.log('Données reçues :', response)
-          console.log(this.ingredients())
-        }),
-        catchError((err) => {return throwError(() => new Error(err))}))
+      .post<Ingredient>(this.url, ingredientData)
   }
 }
