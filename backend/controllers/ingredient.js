@@ -8,7 +8,13 @@ exports.getAll = (req, res) => {
 
 exports.getOne = (req, res) => {
     Ingredient.findOne({_id: req.params.id})
-        .then(ingredient => res.status(200).json(ingredient))
+        .then(ingredient => {
+            console.log('Donnée retournée par MongoDB :', ingredient);
+            if (!ingredient) {
+                return res.status(404).json({ message: 'Ingredient not found' });
+            }
+            res.status(200).json(ingredient)
+        })
         .catch(error => res.status(400).json(error));
 }
 
