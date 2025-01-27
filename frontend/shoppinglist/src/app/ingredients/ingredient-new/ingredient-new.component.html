@@ -1,30 +1,33 @@
 <form (submit)="submit($event)" [formGroup]="formGroup">
-    <mat-form-field class="form-field">
-        <mat-label for="name">Name</mat-label>
-        <input matInput  id="name" name="name" type="text" formControlName="name" />
+    <fieldset class="fieldset border border-base-300 p-4 rounded-box">
+        <legend class="fieldset-legend">Page details</legend>
+        
+        <label class="fieldset-label" for="name">Name</label>
+        <input id="name" name="name" type="text" formControlName="name" class="input" placeholder="My awesome page" />
         @if (isFieldValid('name')) {
             @if (formGroup.get('name')?.hasError('required')) {
                 <div class="error">This field is required.</div>
             }
         }
-    </mat-form-field>
-    <mat-form-field class="form-field">
-        <mat-label for="icon">Icon</mat-label>
-        <input matInput  id="icon" name="icon" type="text" formControlName="icon" />
+
+        <label class="fieldset-label" for="icon">Icon</label>
+        <input id="icon" name="icon" type="text" formControlName="icon" class="input" />
         @if (isFieldValid('icon')) {
             @if (formGroup.get('icon')?.hasError('required')) {
                 <div class="error">This field is required.</div>
             }
         }
-    </mat-form-field>
-    <mat-form-field class="form-field">
-        <mat-label for="category">Category</mat-label>
-        <mat-select id="category" name="category" formControlName="category">
+
+        <label class="fieldset-label" for="category">Category</label>
+        <select id="category" name="category" formControlName="category" class="select">
+            <option disabled selected>Pick a browser</option>
             @for (cat of ingredientCategory; track cat) {
-                <mat-option [value]="cat">{{cat}}</mat-option>
+                <option [value]="cat">{{cat}}</option>
             }
-        </mat-select>
-    </mat-form-field>
-    <button mat-flat-button type="submit" [disabled]="formGroup.invalid">Save</button>
-    <!-- <button (click)="name.setValue('Changed')">Set Name</button> -->
+        </select>
+
+        <button class="btn btn-block" type="submit" [disabled]="formGroup.invalid">Save</button>
+        <!-- <button (click)="name.setValue('Changed')">Set Name</button> -->
+    
+    </fieldset>
 </form>

@@ -2,7 +2,7 @@
     @for(ingredient of ingredients(); track ingredient._id) {
         <li class="list-item">
             <span class="close" (click)="onRemoveIngredient(ingredient)" >
-                <mat-icon aria-hidden="false" aria-label="delete ingredient" fontIcon="delete_forever"></mat-icon>
+                <i class="material-icons">clear</i>
             </span>
             <a href="ingredient/{{ingredient._id}}">
                 <app-ingredient-item [ingredient]="ingredient" />
