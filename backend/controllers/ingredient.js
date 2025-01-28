@@ -19,12 +19,13 @@ exports.getOne = (req, res) => {
 }
 
 exports.addIngredient = (req, res) => {
-    console.log(req.body)
+    const filePath = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
     delete req.body._id;
-    const ingredient = new Ingredient({
-        ...req.body
-    })
 
+    const ingredient = new Ingredient({
+        ...req.body,
+        file: filePath
+    });
     ingredient.save()
         .then((ingredient) => res.status(200).json({ingredient}))
         .catch(error => res.status(400).json({error}));

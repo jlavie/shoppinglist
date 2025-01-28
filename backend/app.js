@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const ingredientRoutes = require('./routes/ingredient');
 
@@ -18,6 +19,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/ingredient', ingredientRoutes);
 
 app.get("/", (req, res) => {

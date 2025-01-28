@@ -3,7 +3,7 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 const ingredientSchema = mongoose.Schema({
     name: {type: String, require: true, unique: true},
-    icon: {type: String, require: true},
+    file: {type: String, require: true},
     category: {type: String, require: true}
 })
 
