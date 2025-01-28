@@ -1,0 +1,18 @@
+:root {
+    display: flex;
+    align-items: center;
+}
+
+.ingredient-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.ingredient-file {
+    width: 50px;
+    overflow: hidden; /* for Firefox */
+    margin: 0 auto;
+    border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+}

@@ -72,8 +72,8 @@ export class IngredientsService {
     })
   }
 
-  add(ingredientData: Ingredient):Observable<Ingredient> {
+  add(data: FormData):Observable<Ingredient> {
     return this.http
-      .post<Ingredient>(this.url, ingredientData)
+      .post<Ingredient>(this.url, data)
   }
 }

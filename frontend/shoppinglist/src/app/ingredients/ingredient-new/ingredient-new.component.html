@@ -10,10 +10,12 @@
             }
         }
 
-        <label class="fieldset-label" for="icon">Icon</label>
-        <input id="icon" name="icon" type="text" formControlName="icon" class="input" />
-        @if (isFieldValid('icon')) {
-            @if (formGroup.get('icon')?.hasError('required')) {
+        <label class="fieldset-label" for="file">Upload file</label>
+        <input type="file" class="file-input" id="file" name="file" (change)="onChange($event)" />
+
+        <!-- <input id="file" name="file" type="text"  class="input" /> -->
+        @if (isFieldValid('file')) {
+            @if (formGroup.get('file')?.hasError('required')) {
                 <div class="error">This field is required.</div>
             }
         }

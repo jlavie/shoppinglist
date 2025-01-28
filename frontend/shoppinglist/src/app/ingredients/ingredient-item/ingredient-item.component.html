@@ -1,8 +1,12 @@
 @if(ingredientSignal()) {
+    <div class="ingredient-image">
+        @if(ingredientSignal().file) {<div class="ingredient-file"><img src="{{ingredientSignal().file}}" /></div>}
+    </div>
     <div class="ingredient-item">
-        @if(ingredientSignal().icon) {<div class="ingredient-icon">{{ingredientSignal().icon}}</div>}
         <div class="ingredient-name">{{ingredientSignal().name}}</div>
-        <div class="badge badge-outline badge-info badge-xs">{{ingredientSignal().category}}</div>
+        <div class="ingredient-category">
+            <div class="badge badge-outline badge-info badge-xs">{{ingredientSignal().category}}</div>
+        </div>
     </div>
 }
 

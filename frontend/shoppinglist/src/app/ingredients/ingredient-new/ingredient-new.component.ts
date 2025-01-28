@@ -21,10 +21,11 @@ export class IngredientNewComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription | null = null;
   private fb = inject(FormBuilder);
   private ingredientService = inject(IngredientsService);
+  private file: File | any = null;
 
   formGroup = this.fb.group({
     name: ['',[Validators.required]],
-    icon: ['',[Validators.required]],
+    file: [null,[Validators.required]],
     category: [IngredientCategory.VEGETABLE, [Validators.required]]
   })
 
@@ -42,11 +43,33 @@ export class IngredientNewComponent implements OnInit, OnDestroy {
     this.routeSubscription?.unsubscribe();
   }
 
+  onChange(event: Event): void {
+    const input = event.target as HTMLInputElement
+    // this.file = event.target.files[0];
+    if(input?.files && input.files.length > 0) {
+      this.file = input.files[0];
+      this.formGroup.patchValue({file: this.file});// Met à jour le formulaire
+      this.formGroup.get('file')?.updateValueAndValidity();// Valide le champ fichier
+    }
+  }
+
   submit(event: Event) {
     event.preventDefault();
     if(this.formGroup.valid) {
-      const newIngredient: any = this.formGroup.value;
-      this.ingredientService.add(newIngredient).subscribe({
+      const data = new FormData();
+
+      if(this.formGroup.value.name) {
+        data.append('name', this.formGroup.value.name);
+      }
+      if(this.formGroup.value.category) {
+        data.append('category', this.formGroup.value.category);
+      }
+      if(this.file) {
+        data.append('file', this.file);
+      }
+
+      // const newIngredient: any = this.formGroup.value;
+      this.ingredientService.add(data).subscribe({
         next: (res) => {
           this.ingredientService.addToSignal(res);
         },
