@@ -1,4 +1,5 @@
 const Ingredient = require('../models/ingredient');
+const fs = require('fs');
 
 exports.getAll = (req, res) => {
     Ingredient.find()
@@ -32,7 +33,18 @@ exports.addIngredient = (req, res) => {
 }
 
 exports.deleteOne = (req, res) => {
-    Ingredient.deleteOne({_id: req.params.id})
-        .then(ingredient => res.status(200).json(ingredient))
+    Ingredient.findOne({_id: req.params.id})
+        .then(ingredient => {
+            const filename = ingredient.file.split('/images/')[1]
+            fs.unlink(`images/${filename}`, () => {
+                Ingredient.deleteOne({_id: req.params.id})
+                .then(ingredient => {
+                    res.status(200).json(ingredient);
+                })
+                .catch(error => res.status(400).json(error));
+            })
+            console.log(filename)
+
+        })
         .catch(error => res.status(400).json(error));
 }
