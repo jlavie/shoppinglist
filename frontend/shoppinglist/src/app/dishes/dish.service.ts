@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class DishService {
   private http = inject(HttpClient);
-  private url = 'http://localhost:32/api/dish';
+  private url = 'http://localhost:3200/api/dish/';
 
   add(data: FormData): Observable<Dish> {
     return this.http.post<Dish>(this.url, data);

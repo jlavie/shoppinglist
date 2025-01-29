@@ -20,7 +20,7 @@ exports.getOne = (req, res) => {
 }
 
 exports.addIngredient = (req, res) => {
-    const filePath = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    const filePath = `${req.protocol}://${req.get('host')}/images/ingredient/${req.file.filename}`;
     delete req.body._id;
 
     const ingredient = new Ingredient({
