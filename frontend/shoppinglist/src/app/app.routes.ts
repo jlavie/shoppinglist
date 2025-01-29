@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { IngredientsComponent } from './ingredients/ingredients.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { IngredientItemComponent } from './ingredients/ingredient-item/ingredient-item.component';
+import { DishesComponent } from './dishes/dishes.component';
 
 export const routes: Routes = [
     {
@@ -16,6 +17,10 @@ export const routes: Routes = [
     {
         path: 'ingredient/:id',
         component: IngredientItemComponent
+    },
+    {
+        path: 'dish',
+        component: DishesComponent
     },
     {
         path: '**',

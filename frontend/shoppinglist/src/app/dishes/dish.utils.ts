@@ -8,5 +8,11 @@ export enum DishCategory {
 export enum DishDifficulty {
     EASY = 'easy',
     MEDIUM = 'medium',
-    HADR = 'hard'
+    HARD = 'hard'
+}
+
+export enum DishBudget {
+    LOW = 'low',
+    MEDIUM = 'medium',
+    EXPENSIVE = 'expensive'
 }

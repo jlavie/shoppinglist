@@ -1,0 +1,48 @@
+<form (submit)="onSubmit($event)" [formGroup]="formGroup">
+    <fieldset class="fieldset border border-base-300 p-4 rounded-box">
+        <legend class="fieldset-legend">Dish form</legend>
+
+        <label class="fieldset-label" for="title">Title</label>
+        <input id="title" name="title" type="text" formControlName="title" class="input" placeholder="New dish title" />
+        @if (isFieldValid('title')) {
+            @if (formGroup.get('title')?.hasError('required')) {
+                <div class="error">This field is required.</div>
+            }
+        }
+
+        <label class="fieldset-label" for="description">description</label>
+        <textarea id="description" name="description" type="text" formControlName="description" class="input" placeholder="New dish description"></textarea>
+
+        <label class="fieldset-label" for="image">Upload image</label>
+        <input type="file" class="file-input" id="image" name="image" (change)="onChange($event)" />
+        @if (isFieldValid('image')) {
+            @if (formGroup.get('image')?.hasError('required')) {
+                <div class="error">This field is required.</div>
+            }
+        }
+
+        <label class="fieldset-label" for="category">Category</label>
+        <select id="category" name="category" formControlName="category" class="select">
+            @for (cat of dishCategory; track cat) {
+                <option [value]="cat">{{cat}}</option>
+            }
+        </select>
+
+        <label class="fieldset-label" for="difficulty">Difficulty</label>
+        <select id="difficulty" name="difficulty" formControlName="difficulty" class="select">
+            @for (cat of dishDifficulty; track cat) {
+                <option [value]="cat">{{cat}}</option>
+            }
+        </select>
+
+        <label class="fieldset-label" for="budget">Budget</label>
+        <select id="budget" name="budget" formControlName="budget" class="select">
+            @for (cat of dishBudget; track cat) {
+                <option [value]="cat">{{cat}}</option>
+            }
+        </select>
+
+        <button class="btn btn-block" type="submit" [disabled]="formGroup.invalid">Save</button>
+        <!-- <button (click)="name.setValue('Changed')">Set Name</button> -->
+    </fieldset>
+</form>
