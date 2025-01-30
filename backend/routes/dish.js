@@ -7,5 +7,6 @@ const upload = multer({ destination: 'images/dish' });
 
 router.get('/all', dishController.getAll);
 router.post('/', upload.single('image'), dishController.add);
+router.delete('/:id', dishController.deleteOne)
 
 module.exports = router;

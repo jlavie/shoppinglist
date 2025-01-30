@@ -20,3 +20,18 @@ exports.add = (req, res) => {
         .then(dish => res.status(200).json({dish}))
         .catch(error => res.status(400).json({error}));
 }
+
+exports.deleteOne = (req, res) => {
+    Dish.findOne({_id: req.params.id})
+    .then(dish => {
+        if (!dish) {
+            return res.status(404).json({ message: 'dish not found' });
+        }
+        const filename = dish.image.split('images/')[1];
+        fs.unlink(`images/${filename}`, () => {
+            Dish.deleteOne({_id: req.params.id})
+                .then(dish => res.status(200).json({dish}))
+                .catch(error => res.status(400).json({error}));
+        })    })
+    .catch(error => res.status(400).json(error));
+}
