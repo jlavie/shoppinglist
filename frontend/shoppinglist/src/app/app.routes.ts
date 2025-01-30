@@ -8,11 +8,11 @@ import { DishItemComponent } from './dishes/dish-item/dish-item.component';
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'dish',
         pathMatch: 'full'
     },
     {
-        path: 'home',
+        path: 'ingredient',
         component: IngredientsComponent
     },
     {
