@@ -1,6 +1,12 @@
 const Dish = require('../models/dish');
 const fs = require('fs');
 
+exports.getAll = (req, res) => {
+    Dish.find()
+        .then(dishes => res.status(200).json({dishes}))
+        .catch(error => res.status(400).json({error}));
+}
+
 exports.add = (req, res) => {
     const filePath = `${req.protocol}://${req.get('host')}/images/dish/${req.file.filename}`;
     delete req.body._id;
