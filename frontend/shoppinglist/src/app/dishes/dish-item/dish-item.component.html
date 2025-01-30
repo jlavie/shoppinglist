@@ -1,9 +1,9 @@
 @if(dishSignal()) {
     <div class="dish-image">
-        @if(dishSignal().file) {<div class="dish-file"><img src="{{dishSignal().file}}" /></div>}
+        @if(dishSignal().image) {<div class="dish-file"><img src="{{dishSignal().image}}" /></div>}
     </div>
     <div class="dish-item">
-        <div class="dish-name">{{dishSignal().name}}</div>
+        <div class="dish-name">{{dishSignal().title}}</div>
         <div class="dish-category">
             <div class="badge badge-outline badge-info badge-xs">{{dishSignal().category}}</div>
         </div>
