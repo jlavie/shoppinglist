@@ -1,0 +1,12 @@
+<ul class="list-wrapper">
+    @for(dish of dishes(); track dish._id) {
+        <li class="list-item">
+            <span class="close" (click)="onDelete(dish)" >
+                <i class="material-icons">clear</i>
+            </span>
+            <a href="dish/{{dish._id}}">
+                <app-dish-item [dish]="dish" />
+            </a>
+        </li>
+    }
+</ul>
