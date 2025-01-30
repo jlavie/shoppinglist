@@ -1,6 +1,18 @@
 const Dish = require('../models/dish');
 const fs = require('fs');
 
+exports.getOne = (req, res) => {
+    Dish.findOne({_id: req.params.id})
+    .then(dish => {
+        console.log('Donnée retournée par MongoDB :', dish);
+        if (!dish) {
+            return res.status(404).json({ message: 'dish not found' });
+        }
+        res.status(200).json(dish)
+    })
+    .catch(error => res.status(400).json(error));
+}
+
 exports.getAll = (req, res) => {
     Dish.find()
         .then(dishes => res.status(200).json({dishes}))

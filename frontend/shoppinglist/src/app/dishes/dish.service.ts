@@ -31,6 +31,10 @@ export class DishService {
     this.destroyRef.onDestroy(() => subscription.unsubscribe())
   }
 
+  getOne(id: string) {
+    return this.http.get(this.url + id);
+  }
+
   getAll(): void {
     const subscription = this.http
       .get<{dishes: Dish[]}>(this.url + 'all')
