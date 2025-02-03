@@ -17,6 +17,10 @@ export class DishService {
     return this.dishes.asReadonly();
   }
 
+  addToSignal(newDish: any): void {
+    this.dishes.update(dishes => [...dishes, newDish.dish])
+  }
+
   add(data: FormData): Observable<Dish> {
     return this.http.post<Dish>(this.url, data);
   }

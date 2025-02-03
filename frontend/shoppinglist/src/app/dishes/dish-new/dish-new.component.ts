@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DishBudget, DishCategory, DishDifficulty } from '../dish.utils';
 import { DishService } from '../dish.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-dish-new',
@@ -63,7 +63,12 @@ export class DishNewComponent implements OnInit, OnDestroy {
       if(this.dishId) {
         this.dishService.update(this.dishId, data);
       } else {
-        this.dishService.add(data).subscribe();
+        this.dishService.add(data).subscribe({
+          next: res => {
+            this.dishService.addToSignal(res);
+          },
+          error: err => {return throwError(() => err)}
+        });
       }
     }
   }
