@@ -9,5 +9,6 @@ router.get('/all', ingredientController.getAll);
 router.post('/', upload.single('file'), ingredientController.addIngredient);
 router.delete('/:id', ingredientController.deleteOne);
 router.get('/:id', ingredientController.getOne);
+router.patch('/:id', upload.single('file'), ingredientController.updateOne);
 
 module.exports = router;

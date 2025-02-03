@@ -48,3 +48,27 @@ exports.deleteOne = (req, res) => {
         })
         .catch(error => res.status(400).json(error));
 }
+
+exports.updateOne = (req, res) => {
+    const ingredientId = req.params.id
+    let updatedData = ''
+
+    if(req.file) {
+        updatedData = {
+            ...req.body,
+            file: `${req.protocol}://${req.get('host')}/images/ingredient/${req.file.filename}`
+        }
+    } else {
+        updatedData = {
+            ...req.body,
+        }
+    }
+
+    Ingredient.findByIdAndUpdate(
+        ingredientId,
+        updatedData,
+        {new: true}
+    )
+        .then((ingredient) => res.status(200).json({ingredient}))
+        .catch(error => res.status(400).json({error}));
+}
