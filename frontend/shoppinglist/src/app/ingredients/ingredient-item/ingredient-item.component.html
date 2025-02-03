@@ -1,17 +1,36 @@
-@if(ingredientSignal()) {
-    <div class="ingredient-image">
-        @if(ingredientSignal().file) {<div class="ingredient-file"><img src="{{ingredientSignal().file}}" /></div>}
-    </div>
-    <div class="ingredient-item">
-        <div class="ingredient-name">{{ingredientSignal().name}}</div>
-        <div class="ingredient-category">
-            <div class="badge badge-outline badge-info badge-xs">{{ingredientSignal().category}}</div>
-        </div>
-    </div>
-}
+@if(params['id']) {
+    <app-admin>
+        <app-header header />
+        <app-ingredient-new left-side (ingredient)="ingredientSignal()" />
 
-@if(!ingredientSignal()) {
-<div>
-    <p>Chargement des données...</p>
-</div>
+        @if(ingredientSignal()) {
+            <div class="ingredient-image">
+                @if(ingredientSignal().file) {<div class="ingredient-file"><img src="{{ingredientSignal().file}}" /></div>}
+            </div>
+            <div class="ingredient-item">
+                <div class="ingredient-name">{{ingredientSignal().name}}</div>
+                <div class="ingredient-category">
+                    <div class="badge badge-outline badge-info badge-xs">{{ingredientSignal().category}}</div>
+                </div>
+            </div>
+        }
+        
+        @if(!ingredientSignal()) {
+        <div>
+            <p>Chargement des données...</p>
+        </div>
+        }    
+    </app-admin>
+} @else {
+    @if(ingredientSignal()) {
+        <div class="ingredient-image">
+            @if(ingredientSignal().file) {<div class="ingredient-file"><img src="{{ingredientSignal().file}}" /></div>}
+        </div>
+        <div class="ingredient-item">
+            <div class="ingredient-name">{{ingredientSignal().name}}</div>
+            <div class="ingredient-category">
+                <div class="badge badge-outline badge-info badge-xs">{{ingredientSignal().category}}</div>
+            </div>
+        </div>
+    }
 }

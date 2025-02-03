@@ -1,7 +1,8 @@
 export enum IngredientCategory {
-    VEGETABLE = 'vegetable',
-    STARCH = 'starch',
-    MEAT = 'meat'
+    VEGETABLE = 'Légume',
+    STARCH = 'Féculent',
+    FRUIT = 'Fruit',
+    MEAT = 'Viande'
 }
 
 export interface IIngredientCategoryProperties {

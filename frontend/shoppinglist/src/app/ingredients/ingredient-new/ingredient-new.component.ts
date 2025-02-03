@@ -1,6 +1,6 @@
 import { Component, computed, DestroyRef, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, throwError } from 'rxjs';
 import { IngredientCategory } from '../ingredient.utils';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +22,7 @@ export class IngredientNewComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   private ingredientService = inject(IngredientsService);
   private file: File | any = null;
+  private router: Router | null = null;
 
   formGroup = this.fb.group({
     name: ['',[Validators.required]],
@@ -30,12 +31,21 @@ export class IngredientNewComponent implements OnInit, OnDestroy {
   })
 
   ingredientCategory = Object.values(IngredientCategory);
-  ingerdientId = -1;
+  ingerdientId = '';
   ingredients = signal<Ingredient[]>([]);
+  ingredientSignal = signal<any>(undefined)
+  params = this.route.snapshot.params;
 
   ngOnInit(): void {
     this.routeSubscription = this.route.params.subscribe( params => {
-      if(params['id']) {this.ingerdientId = parseInt(params['id'])}
+      if(params['id']) {
+        this.ingerdientId = params['id']
+        this.ingredientService.getOne(this.ingerdientId).subscribe({
+          next: (data:any) => {
+            this.formGroup.patchValue(data);
+          }
+        })
+      }
     })
   }
 
@@ -69,12 +79,21 @@ export class IngredientNewComponent implements OnInit, OnDestroy {
       }
 
       // const newIngredient: any = this.formGroup.value;
-      this.ingredientService.add(data).subscribe({
-        next: (res) => {
-          this.ingredientService.addToSignal(res);
-        },
-        error: (err) => {return throwError(() => err)}
-      })
+      if(this.ingerdientId) {
+        this.ingredientService.update(this.ingerdientId, data).subscribe({
+          next: (data:any) => {
+            console.log('Ingrédient mis à jour');
+            //this.router?.navigate(['/ingredients']);
+          }
+        })
+      } else {
+        this.ingredientService.add(data).subscribe({
+          next: (res) => {
+            this.ingredientService.addToSignal(res);
+          },
+          error: (err) => {return throwError(() => err)}
+        })
+      }
     }
   }
 

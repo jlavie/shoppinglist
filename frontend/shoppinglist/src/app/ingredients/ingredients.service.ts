@@ -76,4 +76,9 @@ export class IngredientsService {
     return this.http
       .post<Ingredient>(this.url, data)
   }
+
+  update(id:string, data: FormData):Observable<Ingredient> {
+    return this.http
+      .patch<Ingredient>(this.url + id, data)
+  }
 }

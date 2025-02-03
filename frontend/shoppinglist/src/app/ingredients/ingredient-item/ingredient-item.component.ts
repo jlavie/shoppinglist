@@ -2,12 +2,13 @@ import { Component, computed, inject, Input, input, OnInit, signal } from '@angu
 import { Ingredient } from '../ingredient.model';
 import { ActivatedRoute } from '@angular/router';
 import { IngredientsService } from '../ingredients.service';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { of, switchMap } from 'rxjs';
+import { AdminComponent } from "../../pages/admin/admin.component";
+import { HeaderComponent } from "../../header/header.component";
+import { IngredientNewComponent } from "../ingredient-new/ingredient-new.component";
 
 @Component({
   selector: 'app-ingredient-item',
-  imports: [],
+  imports: [AdminComponent, HeaderComponent, IngredientNewComponent],
   templateUrl: './ingredient-item.component.html',
   styleUrl: './ingredient-item.component.css'
 })
@@ -22,12 +23,12 @@ export class IngredientItemComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private ingredientService = inject(IngredientsService);
   ingredientSignal = signal<any>(undefined)
+  params = this.route.snapshot.params;
 
   ngOnInit(): void {
-    const params = this.route.snapshot.params;
 
-    if(params['id']) {
-      this.ingredientService.getOne(params['id']).subscribe({
+    if(this.params['id']) {
+      this.ingredientService.getOne(this.params['id']).subscribe({
         next: (data:any) => {
           this.ingredientSignal.set(data)
         }
