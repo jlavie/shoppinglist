@@ -1,18 +1,18 @@
 export enum DishCategory {
-    HOT_DISH = 'hot dish',
-    COLD_DISH = 'cold dish',
-    STARTER = 'starter',
-    DESSERT = 'dessert'
+    HOT_DISH = 'Plat chaud',
+    COLD_DISH = 'Plat froid',
+    STARTER = 'Entrée',
+    DESSERT = 'Dessert'
 }
 
 export enum DishDifficulty {
-    EASY = 'easy',
-    MEDIUM = 'medium',
-    HARD = 'hard'
+    EASY = 'Facile',
+    MEDIUM = 'Moyen',
+    HARD = 'Difficile'
 }
 
 export enum DishBudget {
-    LOW = 'low',
-    MEDIUM = 'medium',
-    EXPENSIVE = 'expensive'
+    LOW = 'Faible',
+    MEDIUM = 'Moyen',
+    EXPENSIVE = 'Cher'
 }

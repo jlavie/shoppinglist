@@ -2,10 +2,13 @@ import { Component, inject, Input, OnInit, signal } from '@angular/core';
 import { Dish } from '../dish.model';
 import { ActivatedRoute } from '@angular/router';
 import { DishService } from '../dish.service';
+import { AdminComponent } from "../../pages/admin/admin.component";
+import { HeaderComponent } from "../../header/header.component";
+import { DishNewComponent } from "../dish-new/dish-new.component";
 
 @Component({
   selector: 'app-dish-item',
-  imports: [],
+  imports: [AdminComponent, HeaderComponent, DishNewComponent],
   templateUrl: './dish-item.component.html',
   styleUrl: './dish-item.component.css'
 })
@@ -13,6 +16,7 @@ export class DishItemComponent implements OnInit {
   dishSignal = signal<any>(undefined);
   private route = inject(ActivatedRoute);
   private dishService = inject(DishService);
+  params = this.route.snapshot.params;
 
   @Input() set dish(value: Dish | null) {
     if(value) {
@@ -21,10 +25,8 @@ export class DishItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const params = this.route.snapshot.params;
-
-    if(params['id']) {
-      this.dishService.getOne(params['id'])
+    if(this.params['id']) {
+      this.dishService.getOne(this.params['id'])
         .subscribe({
           next: (data) => {
             this.dishSignal.set(data)

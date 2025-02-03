@@ -1,7 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DishBudget, DishCategory, DishDifficulty } from '../dish.utils';
 import { DishService } from '../dish.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dish-new',
@@ -9,10 +11,13 @@ import { DishService } from '../dish.service';
   templateUrl: './dish-new.component.html',
   styleUrl: './dish-new.component.css'
 })
-export class DishNewComponent {
+export class DishNewComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   private image: File | any = null;
   private dishService = inject(DishService);
+  private router: Router | null = null;
+  private route = inject(ActivatedRoute);
+  private routeSubscription: Subscription | null = null;
 
   formGroup = this.fb.group({
     title: ['',[Validators.required]], 
@@ -25,6 +30,24 @@ export class DishNewComponent {
   dishCategory = Object.values(DishCategory);
   dishDifficulty = Object.values(DishDifficulty);
   dishBudget = Object.values(DishBudget);
+  dishId = '';
+
+  ngOnInit(): void {
+    this.routeSubscription = this.route.params.subscribe(params => {
+      if(params['id']) {
+        this.dishId = params['id'];
+        this.dishService.getOne(this.dishId).subscribe({
+          next: (data: any) => {
+            this.formGroup.patchValue(data);
+          }
+        })
+      }
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.routeSubscription?.unsubscribe();
+  }
 
   onSubmit(event: Event) {
     event.preventDefault();
@@ -37,7 +60,11 @@ export class DishNewComponent {
       this.formGroup.value.difficulty ? data.append('difficulty', this.formGroup.value.difficulty) : '';
       this.formGroup.value.budget ? data.append('budget', this.formGroup.value.budget) : '';
 
-      this.dishService.add(data).subscribe();
+      if(this.dishId) {
+        this.dishService.update(this.dishId, data);
+      } else {
+        this.dishService.add(data).subscribe();
+      }
     }
   }
 

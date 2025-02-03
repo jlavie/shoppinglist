@@ -45,4 +45,11 @@ export class DishService {
 
     this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
+
+  update(id: string, data: FormData) {
+    this.http.patch<Dish>(this.url + id, data)
+    .subscribe({
+      error: (err) => {return throwError(() => err)}
+    });
+  }
 }

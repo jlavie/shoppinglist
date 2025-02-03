@@ -4,7 +4,7 @@ const fs = require('fs');
 exports.getOne = (req, res) => {
     Dish.findOne({_id: req.params.id})
     .then(dish => {
-        console.log('Donnée retournée par MongoDB :', dish);
+        // console.log('Donnée retournée par MongoDB :', dish);
         if (!dish) {
             return res.status(404).json({ message: 'dish not found' });
         }
@@ -46,4 +46,24 @@ exports.deleteOne = (req, res) => {
                 .catch(error => res.status(400).json({error}));
         })    })
     .catch(error => res.status(400).json(error));
+}
+
+exports.updateOne = (req, res) => {
+    const dishId = req.params.id;
+    let updatedData = '';
+
+    if(req.file) {
+        updatedData = {
+            ...req.body,
+            file: `${req.protocol}://${req.get('host')}/images/dish/${req.file.filename}`
+        }
+    } else {
+        updatedData = {
+            ...req.body
+        }
+    }
+
+    Dish.findByIdAndUpdate(dishId, updatedData, {new: true})
+        .then(dish => res.status(200).json({dish}))
+        .catch(error => res.status(400).json({error}));
 }

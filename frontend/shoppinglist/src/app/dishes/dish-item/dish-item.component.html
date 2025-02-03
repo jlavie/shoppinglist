@@ -1,17 +1,37 @@
-@if(dishSignal()) {
-    <div class="dish-image">
-        @if(dishSignal().image) {<div class="dish-file"><img src="{{dishSignal().image}}" /></div>}
-    </div>
-    <div class="dish-item">
-        <div class="dish-name">{{dishSignal().title}}</div>
-        <div class="dish-category">
-            <div class="badge badge-outline badge-info badge-xs">{{dishSignal().category}}</div>
-        </div>
-    </div>
-}
+@if(params['id']) {
+    <app-admin>
+        <app-header header />
 
-@if(!dishSignal()) {
-<div>
-    <p>Chargement des données...</p>
-</div>
+        <app-dish-new left-side (dish)="dishSignal()" />
+
+        @if(dishSignal()) {
+            <div class="dish-image">
+                @if(dishSignal().image) {<div class="dish-file"><img src="{{dishSignal().image}}" /></div>}
+            </div>
+            <div class="dish-item">
+                <div class="dish-name">{{dishSignal().title}}</div>
+                <div class="dish-category">
+                    <div class="badge badge-outline badge-info badge-xs">{{dishSignal().category}}</div>
+                </div>
+            </div>
+        }
+
+        @if(!dishSignal()) {
+            <div>
+                <p>Chargement des données...</p>
+            </div>
+        }        
+    </app-admin>
+} @else {
+    @if(dishSignal()) {
+        <div class="dish-image">
+            @if(dishSignal().image) {<div class="dish-file"><img src="{{dishSignal().image}}" /></div>}
+        </div>
+        <div class="dish-item">
+            <div class="dish-name">{{dishSignal().title}}</div>
+            <div class="dish-category">
+                <div class="badge badge-outline badge-info badge-xs">{{dishSignal().category}}</div>
+            </div>
+        </div>
+    }    
 }

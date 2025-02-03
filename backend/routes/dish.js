@@ -9,5 +9,6 @@ router.get('/all', dishController.getAll);
 router.post('/', upload.single('image'), dishController.add);
 router.delete('/:id', dishController.deleteOne)
 router.get('/:id', dishController.getOne);
+router.patch('/:id', upload.single('image'), dishController.updateOne);
 
 module.exports = router;
