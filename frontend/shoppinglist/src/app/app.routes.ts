@@ -4,12 +4,17 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { IngredientItemComponent } from './ingredients/ingredient-item/ingredient-item.component';
 import { DishesComponent } from './dishes/dishes.component';
 import { DishItemComponent } from './dishes/dish-item/dish-item.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
     {
         path: '',
         redirectTo: 'dish',
         pathMatch: 'full'
+    },
+    {
+        path: 'login',
+        component: LoginComponent
     },
     {
         path: 'ingredient',
