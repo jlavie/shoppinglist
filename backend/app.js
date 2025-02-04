@@ -4,6 +4,7 @@ const path = require('path');
 
 const ingredientRoutes = require('./routes/ingredient');
 const dishRoutes = require('./routes/dish');
+const userRoutes = require('./routes/user');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/ingredient', ingredientRoutes);
 app.use('/api/dish', dishRoutes);
+app.use('/api/session/user', userRoutes);
 
 app.get("/", (req, res) => {
     res.send("test")
