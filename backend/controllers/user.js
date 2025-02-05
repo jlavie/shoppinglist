@@ -13,15 +13,12 @@ exports.register = (req, res) => {
 
 exports.login = (req, res) => {
     const {email, password} = req.body;
-    console.log(email)
-    console.log(password)
     User.findOne({email}).then(user => {
         if (!user) {
             return res.status(401).json({ message: 'user not found' });
         }
         bcrypt.compare(password, user.password)
             .then(isValid => {
-                console.log(isValid)
                 if(!isValid) {
                     return res.status(401).json({ message: 'invalid password' });
                 }
@@ -34,7 +31,6 @@ exports.login = (req, res) => {
 }
 
 exports.verifyToken = (req, res) => {
-    console.log(req.header('Authorization'));
     const token = req.header('Authorization');
     if(!token) return res.status(401).json({error: 'Access refused'});
 
@@ -47,36 +43,7 @@ exports.verifyToken = (req, res) => {
     }
 }
 
-exports.loginOld = (req, res) => {
-    console.log('save me')
-    delete req.body._id;
-
-    const user = new User({...req.body})
-    user.save()
-        .then(user =>  {
-            
-            const token = jwt.sign(
-                { id: user._id, username: user.username },
-                 secretKey, 
-                 {expiresIn: '1h'}
-            );
-            const data = {
-                token: token,
-                user : { username: user.username }
-            }
-            res.status(200).json({data})
-        })
-        .catch(error => {
-            res.status(400).json({error})
-        });
-}
-
-exports.logout = (req, res) => {
-    // 
-}
-
 exports.findMe = (req, res) => {
-    console.log('find me')
     User.findOne({_id: req.params.id})
     .then(user => {
         if (!user) {

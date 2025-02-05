@@ -36,23 +36,7 @@ export class LoginService {
     localStorage.removeItem('token');
   }
 
-  loginOld(credentials: LoginCredentials): Observable<any> {
-    return this.http.post(this.url + 'login/', credentials).pipe(
-      tap({
-        next: (result: any) => {
-          console.log(result)
-          console.log(result.data.token)
-          localStorage.setItem('token', result.data.token);
-          const user = Object.assign(new User(), result.data.user);
-          this.user.set(user);
-        }
-      }),
-      map(result => {return this.user();})
-    )
-  }
-
   getUser(): Observable<any> {
-    console.log(this.url)
     return this.http.get(this.url + 'me/').pipe(
       tap({
         next: result => {
@@ -61,17 +45,6 @@ export class LoginService {
         }
       }),
       map(result => {return this.user();})
-    )
-  }
-
-  logoutOld() {
-    return this.http.get(this.url + 'logout/').pipe(
-      tap({
-        next: result => {
-          localStorage.removeItem('token');
-          this.user.set(null);
-        }
-      })
     )
   }
 }
