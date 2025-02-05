@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/ingredient', ingredientRoutes);
 app.use('/api/dish', dishRoutes);
-app.use('/api/session/user', userRoutes);
+app.use('/api/auth', userRoutes);
 
 app.get("/", (req, res) => {
     res.send("test")

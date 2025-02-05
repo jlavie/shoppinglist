@@ -1,6 +1,14 @@
-<form (submit)="login()" [formGroup]="formGroup">
+<form (submit)="(routePath === 'register' ? register() : login())" [formGroup]="formGroup">
     <fieldset class="fieldset border border-base-300 p-4 rounded-box">
         <legend class="fieldset-legend">Login</legend>
+
+        <label class="fieldset-label" for="email">Email</label>
+        <input id="email" name="email" type="text" formControlName="email" class="input" />
+        @if (isFieldValid('email')) {
+            @if (formGroup.get('email')?.hasError('required')) {
+                <div class="error">This field is required.</div>
+            }
+        }
 
         <label class="fieldset-label" for="username">Username</label>
         <input id="username" name="username" type="text" formControlName="username" class="input" />

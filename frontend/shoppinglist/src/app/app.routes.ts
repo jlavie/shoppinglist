@@ -5,6 +5,7 @@ import { IngredientItemComponent } from './ingredients/ingredient-item/ingredien
 import { DishesComponent } from './dishes/dishes.component';
 import { DishItemComponent } from './dishes/dish-item/dish-item.component';
 import { LoginComponent } from './pages/login/login.component';
+import { isLoggedInGuard } from './guards/is-logged-in.guard';
 
 export const routes: Routes = [
     {
@@ -17,12 +18,17 @@ export const routes: Routes = [
         component: LoginComponent
     },
     {
+        path: 'register',
+        component: LoginComponent
+    },
+    {
         path: 'ingredient',
         component: IngredientsComponent
     },
     {
         path: 'ingredient/:id',
-        component: IngredientItemComponent
+        component: IngredientItemComponent,
+        canActivate: [isLoggedInGuard]
     },
     {
         path: 'dish',

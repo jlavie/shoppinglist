@@ -9,17 +9,42 @@ import { map, Observable, tap } from 'rxjs';
 })
 export class LoginService {
   private http = inject(HttpClient);
-  private url = 'http://localhost:3200/api/session/user/';
+  private url = 'http://localhost:3200/api/auth';
   user = signal<User | null | undefined>(undefined);
 
-  login(credentials: LoginCredentials): Observable<any> {
+  register(user: any): Observable<any> {
+    return this.http.post(this.url + '/register', user);
+  }
+
+  login(credentials: any): Observable<any> {
+    return this.http.post(`${this.url}/login`, credentials);
+  }
+
+  saveToken(token: string): void {
+    localStorage.setItem('token', token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  isLoggedIn():boolean {
+    return !!this.getToken();
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+  }
+
+  loginOld(credentials: LoginCredentials): Observable<any> {
     return this.http.post(this.url + 'login/', credentials).pipe(
       tap({
         next: (result: any) => {
           console.log(result)
-          // localStorage.setItem('token', result['token']);
-          // const user = Object.assign(new User(), result['user']);
-          // this.user.set(user);
+          console.log(result.data.token)
+          localStorage.setItem('token', result.data.token);
+          const user = Object.assign(new User(), result.data.user);
+          this.user.set(user);
         }
       }),
       map(result => {return this.user();})
@@ -27,6 +52,7 @@ export class LoginService {
   }
 
   getUser(): Observable<any> {
+    console.log(this.url)
     return this.http.get(this.url + 'me/').pipe(
       tap({
         next: result => {
@@ -38,7 +64,7 @@ export class LoginService {
     )
   }
 
-  logout() {
+  logoutOld() {
     return this.http.get(this.url + 'logout/').pipe(
       tap({
         next: result => {
