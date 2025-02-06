@@ -36,19 +36,6 @@ export class IngredientsService {
       })
   }
 
-  // getOne(id: string):any {
-  //   console.log(this.url + id)
-  //   const subscription = this.http
-  //     .get(this.url + id)
-  //     .subscribe({
-  //       next: (data) => console.log(data),
-  //       error: (err) => {return throwError(() => err)}
-  //     })
-
-  //   this.destroyRef.onDestroy(() => {
-  //     subscription.unsubscribe();
-  //   })
-  // }
   getOne(id: string): Observable<Ingredient> {
     return this.http.get<Ingredient>(this.url + id);
   }

@@ -22,6 +22,7 @@ exports.getAll = (req, res) => {
 exports.add = (req, res) => {
     const filePath = `${req.protocol}://${req.get('host')}/images/dish/${req.file.filename}`;
     delete req.body._id;
+    console.log(req.body)
 
     const dish = new Dish({
         ...req.body,

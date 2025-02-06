@@ -3,4 +3,5 @@ export interface Ingredient {
     name: string;
     file: File;
     category: string;
+    unit?: string;
 }

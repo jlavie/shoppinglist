@@ -1,3 +1,5 @@
+import { Ingredient } from "../ingredients/ingredient.model";
+
 export interface Dish {
     _id: string;
     title: string; 
@@ -6,4 +8,8 @@ export interface Dish {
     category: string; 
     difficulty: string; 
     budget: string;
+    ingredients: {
+        ingredient: Ingredient;
+        quantity: number;
+    }[];
 }

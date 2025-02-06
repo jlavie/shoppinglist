@@ -42,6 +42,58 @@
             }
         </select>
 
+        <!-- <label class="fieldset-label">Add Ingredient</label>
+        <select class="select" (change)="onIngredientChange($event)">
+            @for (ingredient of availableIngredients(); track ingredient) {
+                <option [value]="ingredient._id">
+                    {{ ingredient.name }}
+                </option>
+            }
+        </select> -->
+
+        <!-- Liste des ingrédients sélectionnés -->
+        <div class="border-t pt-4">
+            <h3 class="text-lg font-semibold">Ajouter des Ingrédients</h3>
+        
+            <!-- Champ de recherche -->
+        
+              <input
+                type="text"
+                [value]="searchQuery()"
+                (input)="searchIngredient($any($event.target).value)"
+                placeholder="Rechercher un ingrédient..."
+                class="input input-bordered w-full mt-2"
+                />
+            <!-- Liste des ingrédients disponibles -->
+            <ul class="mt-2">
+                @for (ingredient of ingredientsList(); track ingredient) {
+                    <li class="flex justify-between items-center p-2 border-b">
+                        <span>{{ ingredient.name }}</span>
+                        <button type="button" class="btn btn-sm btn-primary" (click)="addIngredient(ingredient)">Ajouter</button>
+                    </li>
+                }
+            </ul>
+            <h4 class="text-md font-semibold mt-4">Ingrédients sélectionnés</h4>
+            
+            <ul class="mt-2" formArrayName="ingredients">
+                @for (item of selectedIngredients(); track item; let i = $index) {
+                  <li class="flex items-center justify-between p-2 bg-gray-100 rounded-lg" >
+                    <span>{{ item.ingredient.name }}</span>
+                    
+                    <!-- Ajout de l'attribut formControlName pour chaque champ -->
+                    <input type="number" 
+                    [value]="item.quantity"
+                    (change)="updateIngredientQuantity(i, $any($event.target).value)"
+                    min="1" 
+                    class="input input-sm w-16" />
+                    
+                    <button type="button" class="btn btn-sm btn-error" (click)="removeIngredient(i)">❌</button>
+                  </li>
+                }
+              </ul>
+
+        </div>        
+            
         <button class="btn btn-block" type="submit" [disabled]="formGroup.invalid">Save</button>
         <!-- <button (click)="name.setValue('Changed')">Set Name</button> -->
     </fieldset>
