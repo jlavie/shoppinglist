@@ -8,7 +8,7 @@ const dishSchema = mongoose.Schema({
     difficulty: {type: String, require: true},
     budget: {type: String, require: true},
     ingredients: [{
-        id: { type: mongoose.Schema.Types.ObjectId, ref: 'Ingredient' },
+        _id: { type: mongoose.Schema.Types.ObjectId, ref: 'Ingredient' },
         quantity: { type: Number, required: true }
       }]
 })

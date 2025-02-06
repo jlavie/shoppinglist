@@ -75,7 +75,7 @@
             </ul>
             <h4 class="text-md font-semibold mt-4">Ingrédients sélectionnés</h4>
             
-            <ul class="mt-2" formArrayName="ingredients">
+            <ul class="mt-2">
                 @for (item of selectedIngredients(); track item; let i = $index) {
                   <li class="flex items-center justify-between p-2 bg-gray-100 rounded-lg" >
                     <span>{{ item.ingredient.name }}</span>

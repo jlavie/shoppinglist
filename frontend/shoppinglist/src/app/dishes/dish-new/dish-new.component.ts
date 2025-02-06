@@ -79,7 +79,17 @@ export class DishNewComponent implements OnInit, OnDestroy {
       this.formGroup.value.difficulty ? data.append('difficulty', this.formGroup.value.difficulty) : '';
       this.formGroup.value.budget ? data.append('budget', this.formGroup.value.budget) : '';
 
-      data.append('ingredients', JSON.stringify(this.selectedIngredients()));
+      // data.append('ingredients', JSON.stringify(this.selectedIngredients()));
+      const formattedIngredients = this.selectedIngredients().map(item => ({
+        _id: item.ingredient._id,
+        quantity: item.quantity
+      }))
+      // data.append('ingredients', JSON.stringify(formattedIngredients));
+
+      formattedIngredients.forEach((ingredient, index) => {
+        data.append(`ingredients[${index}][_id]`, ingredient._id);
+        data.append(`ingredients[${index}][quantity]`, ingredient.quantity.toString());
+      });
 
       if(this.dishId) {
         this.dishService.update(this.dishId, data);
@@ -142,13 +152,23 @@ export class DishNewComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateIngredientQuantity(index: number, event: Event) {
-    const inputElement = event.target as HTMLInputElement;
-    const quantity = Number(inputElement.value);
-    this.selectedIngredients.update(ingredients => {
-      ingredients[index].quantity = Number(quantity);
-      return [...ingredients];
-    });
+  updateIngredientQuantity(index: number, newQuantity: string) {
+    const quantity = Number(newQuantity);
+    if (quantity < 1) return;
+    // const inputElement = event.target as HTMLInputElement;
+    // const quantity = Number(inputElement.value);
+    console.log(quantity)
+    console.log(index)
+    // this.selectedIngredients.update(ingredients => {
+    //   console.log(ingredients)
+    //   ingredients[index].quantity = Number(quantity);
+    //   return [...ingredients];
+    // });
+    this.selectedIngredients.update(ingredients =>
+      ingredients.map((item, i) =>
+        i === index ? { ...item, quantity } : item
+      )
+    );
   }
 
   // onIngredientChange(event: Event): void {
