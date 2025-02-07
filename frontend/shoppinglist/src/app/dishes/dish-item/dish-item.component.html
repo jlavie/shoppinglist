@@ -6,7 +6,7 @@
 
         @if(dishSignal()) {
             <div class="dish-image">
-                @if(dishSignal().image) {<div class="dish-file"><img src="{{dishSignal().image}}" /></div>}
+                @if(dishSignal().image) {<div class="dish-file"><img class="size-32 rounded-full" src="{{dishSignal().image}}" /></div>}
             </div>
             <div class="dish-item">
                 <div class="dish-name">{{dishSignal().title}}</div>
@@ -24,8 +24,8 @@
     </app-admin>
 } @else {
     @if(dishSignal()) {
-        <div class="dish-image">
-            @if(dishSignal().image) {<div class="dish-file"><img src="{{dishSignal().image}}" /></div>}
+        <div class="dish-image flex center">
+            @if(dishSignal().image) {<img class="size-32 rounded-full" src="{{dishSignal().image}}" />}
         </div>
         <div class="dish-item">
             <div class="dish-name">{{dishSignal().title}}</div>

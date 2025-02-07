@@ -11,7 +11,7 @@
         }
 
         <label class="fieldset-label" for="description">description</label>
-        <textarea id="description" name="description" type="text" formControlName="description" class="input" placeholder="New dish description"></textarea>
+        <textarea id="description" name="description" type="text" formControlName="description" class="textarea textarea-bordered" placeholder="New dish description"></textarea>
 
         <label class="fieldset-label" for="image">Upload image</label>
         <input type="file" class="file-input" id="image" name="image" (change)="onChange($event)" />
@@ -52,7 +52,7 @@
         </select> -->
 
         <!-- Liste des ingrédients sélectionnés -->
-        <div class="border-t pt-4">
+        <div class="pt-4">
             <h3 class="text-lg font-semibold">Ajouter des Ingrédients</h3>
         
             <!-- Champ de recherche -->
@@ -65,14 +65,14 @@
                 class="input input-bordered w-full mt-2"
                 />
             <!-- Liste des ingrédients disponibles -->
-            <ul class="mt-2">
-                @for (ingredient of ingredientsList(); track ingredient) {
-                    <li class="flex justify-between items-center p-2 border-b">
-                        <span>{{ ingredient.name }}</span>
-                        <button type="button" class="btn btn-sm btn-primary" (click)="addIngredient(ingredient)">Ajouter</button>
-                    </li>
+            <div class="mt-2 flex flex-wrap gap-4 pt-4">
+                @for (ingredient of ingredientsList().slice(0,10); track ingredient) {
+                    <div class="indicator">
+                        <span class="indicator-item badge badge-neutral cursor-pointer" (click)="addIngredient(ingredient)">+</span>
+                        <div class="badge badge-lg">{{ ingredient.name }}</div>
+                    </div>
                 }
-            </ul>
+            </div>
             <h4 class="text-md font-semibold mt-4">Ingrédients sélectionnés</h4>
             
             <ul class="mt-2">
