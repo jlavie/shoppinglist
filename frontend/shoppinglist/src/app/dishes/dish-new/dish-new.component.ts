@@ -58,6 +58,16 @@ export class DishNewComponent implements OnInit, OnDestroy {
         this.dishService.getOne(this.dishId).subscribe({
           next: (data: any) => {
             this.formGroup.patchValue(data);
+            console.log(data)
+            if (data.ingredients && Array.isArray(data.ingredients)) {
+              const formattedIngredients = data.ingredients.map((ing: {_id: string; quantity: number}) => ({
+                ingredient: this.ingredientService.getIngredientById(ing._id), // Trouver l'ingrédient dans la liste globale
+                quantity: ing.quantity
+              }));
+  
+              // Mettre à jour le signal selectedIngredients
+              this.selectedIngredients.set(formattedIngredients);
+            }
           }
         })
       }

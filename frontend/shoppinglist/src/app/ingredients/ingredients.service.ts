@@ -68,4 +68,8 @@ export class IngredientsService {
     return this.http
       .patch<Ingredient>(this.url + id, data)
   }
+
+  getIngredientById(id: string): Ingredient | null {
+    return this.ingredientsData().find(ingredient => ingredient._id === id) || null;
+  }
 }
