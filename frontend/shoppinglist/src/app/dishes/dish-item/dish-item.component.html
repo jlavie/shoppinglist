@@ -5,14 +5,16 @@
         <app-dish-new left-side (dish)="dishSignal()" />
 
         @if(dishSignal()) {
-            <div class="dish-image">
-                @if(dishSignal().image) {<div class="dish-file"><img class="size-32 rounded-full" src="{{dishSignal().image}}" /></div>}
-            </div>
-            <div class="dish-item">
-                <div class="dish-name">{{dishSignal().title}}</div>
-                <div class="dish-category">
-                    <div class="badge badge-outline badge-info badge-xs">{{dishSignal().category}}</div>
-                </div>
+            <!-- Image à gauche (prend toute la hauteur) -->
+            @if(dishSignal().image) {<img src="{{dishSignal().image}}" alt="Repas"
+            class="w-25 h-full object-cover rounded-l-xl">}
+        
+            <!-- Contenu texte à droite -->
+            <div class="flex-1 p-3">
+                <h2 class="text-lg font-semibold">{{dishSignal().title}}</h2>
+                <p class="text-gray-500 text-xs">
+                    <span class="badge badge-outline badge-info badge-xs">{{dishSignal().category}}</span>
+                </p>
             </div>
         }
 
@@ -24,14 +26,16 @@
     </app-admin>
 } @else {
     @if(dishSignal()) {
-        <div class="dish-image flex center">
-            @if(dishSignal().image) {<img class="size-32 rounded-full" src="{{dishSignal().image}}" />}
-        </div>
-        <div class="dish-item">
-            <div class="dish-name">{{dishSignal().title}}</div>
-            <div class="dish-category">
-                <div class="badge badge-outline badge-info badge-xs">{{dishSignal().category}}</div>
-            </div>
+        <!-- Image à gauche (prend toute la hauteur) -->
+        @if(dishSignal().image) {<img src="{{dishSignal().image}}" alt="Repas"
+        class="w-25 h-full object-cover rounded-l-xl">}
+    
+        <!-- Contenu texte à droite -->
+        <div class="flex-1 p-3">
+            <h2 class="text-lg font-semibold">{{dishSignal().title}}</h2>
+            <p class="text-gray-500 text-xs">
+                <span class="badge badge-outline badge-info badge-xs">{{dishSignal().category}}</span>
+            </p>
         </div>
     }    
 }

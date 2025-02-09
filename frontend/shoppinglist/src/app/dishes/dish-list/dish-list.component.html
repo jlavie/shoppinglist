@@ -1,10 +1,17 @@
-<ul class="list-wrapper">
+<div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3">
     @for(dish of dishes(); track dish._id) {
-        <li class="list-item indicator">
-            <span class="indicator-item badge badge-xs badge-neutral cursor-pointer" (click)="onDelete(dish)" >x</span>
-            <a href="dish/{{dish._id}}">
-                <app-dish-item [dish]="dish" />
+        <div class="indicator w-full">
+            
+            <app-dish-item [dish]="dish" class="h-25 w-full flex rounded-xl bg-zinc-200 shadow-sm hover:shadow-md transition group overflow-hidden" />
+                      
+            <!-- Lien “Voir plus” aligné à droite -->
+            <a href="dish/{{dish._id}}" class="text-xs link link-hover text-sm font-small absolute bottom-2 right-2 flex items-center gap-1 hover:gap-2 transition-all">
+              Voir plus ->
             </a>
-        </li>
+          
+            <!-- Icônes de modification / suppression en haut à droite -->
+            <span class="indicator-item badge badge-xs badge-neutral cursor-pointer" (click)="onDelete(dish)" >x</span>
+            <span class="indicator-item badge badge-xs badge-neutral cursor-pointer" (click)="onDelete(dish)" >x</span>
+        </div>
     }
-</ul>
+</div>
