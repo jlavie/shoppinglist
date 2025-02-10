@@ -29,6 +29,9 @@ export class DishService {
     const subscription = this.http
       .delete(this.url + id)
       .subscribe({
+        next: () => {
+          this.dishes.update(dishes => dishes.filter(dish => dish._id !== id));
+        },
         error: (err) => {return throwError(() => err)}
       })
 
