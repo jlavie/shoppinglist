@@ -13,12 +13,14 @@ import { IngredientsShoppingListService } from '../ingredients/ingredients-shopp
   imports: [CommonModule, CdkDropList, CdkDrag, DishItemComponent],
 })
 export class WeeklyMenuComponent {
-  private weeklyMenuService = inject(WeeklyMenuService);
+  weeklyMenuService = inject(WeeklyMenuService);
   ingredientsShoppingList = inject(IngredientsShoppingListService);
 
   daysOfWeek = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
   weeklyMenu = this.weeklyMenuService.weeklyMenuData;
+  weeklyMenuSignal = this.weeklyMenuService.weeklyMenuSignal;
+  startDaySignal = this.weeklyMenuService.startDaySignal;
 
   shoppingList = computed(() => {
     const ingredientsMap = new Map<string, number>();

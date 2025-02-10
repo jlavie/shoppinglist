@@ -1,16 +1,20 @@
 <div class="grid grid-cols-2 gap-3 p-3">
-    <!-- Menu de la semaine -->
+    
+<!-- Menu de la semaine -->
     <div class="grid gap-3">
-      @for (day of daysOfWeek; track day) {
+      <label for="start-day">Sélectionner le jour de départ :</label>
+      <input type="date" class="input" id="start-day" [value]="startDaySignal()" (change)="this.weeklyMenuService.updateStartDay($any($event.target).valueAsDate)" />
+    
+      @for (entry of weeklyMenuSignal(); track entry.day) {
         <div class="p-3 bg-white rounded-lg shadow-lg">
-          <h3 class="text-md font-semibold mb-2">{{ day }}</h3>
+          <h3 class="text-md font-semibold mb-2">{{ entry.day }}</h3>
           <div cdkDropList 
-            [cdkDropListData]="weeklyMenu()[day]" 
-            (cdkDropListDropped)="drop($event, day)" 
-            [id]="day"
+            [cdkDropListData]="entry.dishes" 
+            (cdkDropListDropped)="drop($event, entry.day)" 
+            [id]="entry.day"
             class="min-h-18 border-dashed border-2 border-gray-300 p-2 rounded-lg"
             >
-            @for (dish of weeklyMenu()[day]; track dish) {
+            @for (dish of entry.dishes; track dish) {
               <app-dish-item [dish]="dish" cdkDrag [showTitleOnly]="true"></app-dish-item>
             }
           </div>
