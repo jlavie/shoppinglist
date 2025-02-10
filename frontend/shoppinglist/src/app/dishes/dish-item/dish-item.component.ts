@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import { Component, inject, input, Input, OnInit, signal } from '@angular/core';
 import { Dish } from '../dish.model';
 import { ActivatedRoute } from '@angular/router';
 import { DishService } from '../dish.service';
@@ -17,6 +17,7 @@ export class DishItemComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private dishService = inject(DishService);
   params = this.route.snapshot.params;
+  showTitleOnly = input();
 
   @Input() set dish(value: Dish | null) {
     if(value) {

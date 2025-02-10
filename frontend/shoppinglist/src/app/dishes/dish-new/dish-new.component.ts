@@ -60,8 +60,8 @@ export class DishNewComponent implements OnInit, OnDestroy {
             this.formGroup.patchValue(data);
             console.log(data)
             if (data.ingredients && Array.isArray(data.ingredients)) {
-              const formattedIngredients = data.ingredients.map((ing: {_id: string; quantity: number}) => ({
-                ingredient: this.ingredientService.getIngredientById(ing._id), // Trouver l'ingrédient dans la liste globale
+              const formattedIngredients = data.ingredients.map((ing: {ingredient: Ingredient; quantity: number}) => ({
+                ingredient: this.ingredientService.getIngredientById(ing.ingredient._id), // Trouver l'ingrédient dans la liste globale
                 quantity: ing.quantity
               }));
   

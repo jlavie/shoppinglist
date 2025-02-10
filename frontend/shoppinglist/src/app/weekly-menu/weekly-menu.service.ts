@@ -32,6 +32,8 @@ export class WeeklyMenuService {
 
   // Supprimer un plat d'un jour spécifique
   removeDishFromDay(day: string, dishId: string) {
+    console.log(day)
+    console.log(dishId)
     this.weeklyMenu.update((menu) => {
       menu[day] = menu[day].filter((dish) => dish._id !== dishId);
       return menu;

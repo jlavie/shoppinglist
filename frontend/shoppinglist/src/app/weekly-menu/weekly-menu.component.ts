@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DishItemComponent } from '../dishes/dish-item/dish-item.component';
 import { Dish } from '../dishes/dish.model';
-import { DishService } from '../dishes/dish.service';
 import { WeeklyMenuService } from './weekly-menu.service';
+import { IngredientsShoppingListService } from '../ingredients/ingredients-shopping-list.service';
 
 @Component({
   selector: 'app-weekly-menu',
@@ -14,7 +14,7 @@ import { WeeklyMenuService } from './weekly-menu.service';
 })
 export class WeeklyMenuComponent {
   private weeklyMenuService = inject(WeeklyMenuService);
-  private cdr = inject(ChangeDetectorRef);
+  ingredientsShoppingList = inject(IngredientsShoppingListService);
 
   daysOfWeek = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
@@ -34,50 +34,21 @@ export class WeeklyMenuComponent {
 
     return Array.from(ingredientsMap.entries()).map(([name, quantity]) => ({ name, quantity }));
   });
-  ngOnInit() {
-    // Forcer la détection des changements
-    this.cdr.detectChanges();
-  }
-
-  // ngOnInit() {
-  //   this.weeklyMenu = this.weeklyMenuService.weeklyMenuData;
-  //   // Récupérer le menu hebdomadaire depuis WeeklyMenuService
-  //   this.weeklyMenuService.weeklyMenuData.subscribe((menu) => {
-  //     this.weeklyMenu = menu;
-  //   });
-  // }
-  
-
-  // constructor(private dishService: DishService) {
-  //   this.daysOfWeek.forEach((day) => {
-  //     this.weeklyMenu.update((menu) => ({ ...menu, [day]: [] }));
-  //   });
-  // }
 
   drop(event: CdkDragDrop<Dish[]>, day: string) {
-    console.log(event.previousContainer);
-    console.log(event.container);
     if (event.previousContainer === event.container) {
-      console.log('Déplacement dans la même liste');
-      console.log('Previous Container ID:', event.previousContainer.id);
-      console.log('Current Container ID:', event.container.id);
-          moveItemInArray(this.weeklyMenu()[day], event.previousIndex, event.currentIndex);
-      // moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(this.weeklyMenu()[day], event.previousIndex, event.currentIndex);
     } else {
-      console.log('Previous Container ID:', event.previousContainer.id);
-      console.log('Current Container ID:', event.container.id);
-          console.log('Déplacement entre deux listes');
       const dish = event.previousContainer.data[event.previousIndex];
 
-      // Ajouter le plat au jour spécifique dans WeeklyMenuService
-      this.weeklyMenuService.addDishToDay(day, dish);
-      // transferArrayItem(
-      //   event.previousContainer.data,
-      //   event.container.data,
-      //   event.previousIndex,
-      //   event.currentIndex
-      // );
-      // this.weeklyMenu.update((menu) => ({ ...menu, [day]: event.container.data }));
+      if(event.previousContainer.id === 'dishes-list') {
+        this.ingredientsShoppingList.addIngredients(dish.ingredients);
+        this.weeklyMenuService.addDishToDay(day, dish);
+      } else {
+        this.ingredientsShoppingList.removeIngredients(dish.ingredients);
+        this.weeklyMenuService.addDishToDay(day, dish);
+        this.weeklyMenuService.removeDishFromDay(event.previousContainer.id, dish._id);
+      }
     }
   }
 }

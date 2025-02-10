@@ -1,4 +1,4 @@
-<div class="grid p-3">
+<div class="grid grid-cols-2 gap-3 p-3">
     <!-- Menu de la semaine -->
     <div class="grid gap-3">
       @for (day of daysOfWeek; track day) {
@@ -10,25 +10,25 @@
             [id]="day"
             class="min-h-18 border-dashed border-2 border-gray-300 p-2 rounded-lg"
             >
-            @for (dish of weeklyMenu()[day]; track dish._id) {
-              <app-dish-item [dish]="dish" cdkDrag></app-dish-item>
+            @for (dish of weeklyMenu()[day]; track dish) {
+              <app-dish-item [dish]="dish" cdkDrag [showTitleOnly]="true"></app-dish-item>
             }
           </div>
         </div>
       }
     </div>
+    <!-- Liste de courses -->
+    <div class="grid-cols-2 p-3 bg-gray-100 rounded-lg shadow-lg">
+      <h2 class="text-lg font-semibold mb-2">Liste de courses</h2>
+      <ul>
+        @for (item of ingredientsShoppingList.ingredientsShoppingList(); track item) {
+          <li class="flex justify-between p-2 bg-white rounded-lg shadow mb-1">
+            <span>{{ item.name }}</span>
+            <span class="font-bold">{{ item.quantity }}</span>
+          </li>
+        }
+      </ul>
+    </div>
   </div>
   
-  <!-- Liste de courses -->
-  <div class="mt-6 p-4 bg-gray-100 rounded-lg shadow-lg">
-    <h2 class="text-lg font-semibold mb-2">Liste de courses</h2>
-    <ul>
-      @for (item of shoppingList(); track item.name) {
-        <li class="flex justify-between p-2 bg-white rounded-lg shadow mb-1">
-          <span>{{ item.name }}</span>
-          <span class="font-bold">{{ item.quantity }}</span>
-        </li>
-      }
-    </ul>
-  </div>
   

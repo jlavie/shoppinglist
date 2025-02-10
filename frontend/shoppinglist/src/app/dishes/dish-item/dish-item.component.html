@@ -26,16 +26,20 @@
     </app-admin>
 } @else {
     @if(dishSignal()) {
-        <!-- Image à gauche (prend toute la hauteur) -->
-        @if(dishSignal().image) {<img src="{{dishSignal().image}}" alt="Repas"
-        class="w-25 h-full object-cover rounded-l-xl">}
-    
-        <!-- Contenu texte à droite -->
-        <div class="flex-1 p-3">
-            <h2 class="text-lg font-semibold">{{dishSignal().title}}</h2>
-            <p class="text-gray-500 text-xs">
-                <span class="badge badge-outline badge-info badge-xs">{{dishSignal().category}}</span>
-            </p>
-        </div>
+        @if(showTitleOnly()) {
+            <h2 class="text-md font-semibold rounded-lg shadow-lg p-1 pl-3 bg-gray-300 cursor-pointer">{{dishSignal().title}}</h2>
+        } @else {
+            <!-- Image à gauche (prend toute la hauteur) -->
+            @if(dishSignal().image) {<img src="{{dishSignal().image}}" alt="Repas"
+            class="w-25 h-full object-cover rounded-l-xl">}
+        
+            <!-- Contenu texte à droite -->
+            <div class="flex-1 p-3">
+                <h2 class="text-lg font-semibold">{{dishSignal().title}}</h2>
+                <p class="text-gray-500 text-xs">
+                    <span class="badge badge-outline badge-info badge-xs">{{dishSignal().category}}</span>
+                </p>
+            </div>
+        }
     }    
 }
