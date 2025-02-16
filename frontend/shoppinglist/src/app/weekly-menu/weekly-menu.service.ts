@@ -1,6 +1,9 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { Dish } from '../dishes/dish.model';
 import { addDays, formatISO } from 'date-fns';
+import { addYears, formatWithOptions } from 'date-fns/fp'
+import { fr } from 'date-fns/locale'
+
 @Injectable({
   providedIn: 'root',
 })
@@ -21,6 +24,8 @@ export class WeeklyMenuService {
   private weeklyMenu = computed(() => {
     const startDate = this.startDay();
     return Array.from({ length: 7 }, (_, i) => {
+      const dateToString = formatWithOptions({ locale: fr }, 'D MMMM YYYY')
+      console.log(startDate.toDateString)
       const date = formatISO(addDays(startDate, i), { representation: 'date' });
       return { day: date, dishes: this.weeklyMenuData()[date] || [] };
     });

@@ -1,8 +1,21 @@
 export enum IngredientCategory {
+    FRUIT = 'Fruit',
     VEGETABLE = 'Légume',
     STARCH = 'Féculent',
-    FRUIT = 'Fruit',
-    MEAT = 'Viande'
+    MEAT = 'Viande',
+	FISH = 'Poisson',
+	BREAD = 'Pain',
+	FROMAGE = 'Fromage',
+	SAUCE = 'Sauce',
+	EGG = 'Oeuf',
+	MILK = 'Produits laitiers',
+	SEED = 'Graines',
+	CEREAL = 'Cereales',
+	SPICES = 'Epices',
+	OIL = 'Huile',
+	CONDIMENT = 'Condiments',
+	DRINK = 'Boissons'
+
 }
 
 export interface IIngredientCategoryProperties {

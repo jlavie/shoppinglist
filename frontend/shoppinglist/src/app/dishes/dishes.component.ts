@@ -7,7 +7,7 @@ import { WeeklyMenuComponent } from "../weekly-menu/weekly-menu.component";
 
 @Component({
   selector: 'app-dishes',
-  imports: [DishListComponent, AdminComponent, HeaderComponent, WeeklyMenuComponent],
+  imports: [DishListComponent, AdminComponent, HeaderComponent, DishNewComponent],
   templateUrl: './dishes.component.html',
   styleUrl: './dishes.component.css'
 })
