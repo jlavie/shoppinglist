@@ -1,4 +1,4 @@
-import { Component, inject, input, OnDestroy } from '@angular/core';
+import { Component, effect, EventEmitter, inject, input, OnDestroy, Output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginService } from './login.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,13 +21,26 @@ export class LoginComponent implements OnDestroy {
   title = input();
   content = input();
   type = input();
+  @Output() closeModal = new EventEmitter<void>();
+
 
   formGroup = this.fb.group({
     email: ['',[Validators.required]],
-    username: ['',[Validators.required]],
+    username: [''],
     password: ['',[Validators.required]],
   })
   routePath = this.route.snapshot.routeConfig?.path;
+
+  constructor() {
+    effect(() => {
+      if (this.type() === 'register') {
+        this.formGroup.get('username')?.setValidators([Validators.required]);
+      } else {
+        this.formGroup.get('username')?.clearValidators();
+      }
+      this.formGroup.get('username')?.updateValueAndValidity();
+    })
+  }
 
   isFieldValid(fieldName: string) {
     const formControl = this.formGroup.get(fieldName);
@@ -40,7 +53,10 @@ export class LoginComponent implements OnDestroy {
     ).subscribe({
       next: result => {
         this.loginService.saveToken(result.token);
-        this.navigateHome()
+        console.log(this.closeModal)
+        console.log("Login réussi, fermeture de la modal...");
+        this.closeModal.emit();
+        this.navigateHome();
       }
     })
   }
@@ -51,7 +67,8 @@ export class LoginComponent implements OnDestroy {
     ).subscribe({
       next: result => {
         this.loginService.saveToken(result.token);
-        this.navigateHome()
+        this.closeModal.emit();
+        this.navigateHome();
       }
     })
   }

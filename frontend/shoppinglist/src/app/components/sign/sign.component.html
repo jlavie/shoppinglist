@@ -4,12 +4,14 @@
             type="register"
             [title]="registerTitle"
             [content]="registerContent" 
+            (closeModal)="closeModal.emit()"
         />
     </div>
     <div class="form-container sign-in-container">
         <app-login 
             [title]="loginTitle"
             [content]="loginContent" 
+            (closeModal)="closeModal.emit()"
         />
     </div>
     <div class="overlay-container">

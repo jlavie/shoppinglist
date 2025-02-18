@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, EventEmitter, input, Output, signal } from '@angular/core';
 import { LoginComponent } from "../../pages/login/login.component";
 import { ButtonComponent } from '../button/button.component';
 
@@ -10,6 +10,7 @@ import { ButtonComponent } from '../button/button.component';
 })
 export class SignComponent {
   class= input();
+  @Output() closeModal: EventEmitter<void> = new EventEmitter();
   loginTitle = "S’identifier";
   loginContent = "Merci de vous connecter avec vos informations personnelles";
   registerTitle = "S’enregistrer";
