@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject, input, OnDestroy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginService } from './login.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,6 +18,9 @@ export class LoginComponent implements OnDestroy {
   private router = inject(Router);
   private loginSubscription: Subscription | null = null;
   private route = inject(ActivatedRoute);
+  title = input();
+  content = input();
+  type = input();
 
   formGroup = this.fb.group({
     email: ['',[Validators.required]],

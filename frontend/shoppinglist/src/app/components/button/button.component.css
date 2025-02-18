@@ -1,0 +1,34 @@
+.button {
+    display: inline-block;
+    padding: var(--padding-small) var(--padding-medium);
+    font-family:  'Montserrat', 'Courier New', Courier, monospace;
+    font-size: var(--text-font-size);
+    border-radius: var(--small-radius);
+    cursor: pointer;
+    line-height: 20px;
+    font-weight: 500;
+}
+
+.button-primary {
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+}
+
+.button-primary:hover {
+    background-color: var(--secondary-color-hover);
+}
+
+.button-white {
+    border: 1px solid var(--white-color);
+    color: var(--white-color);
+}
+
+.button .icon {
+    display: inline-block;
+    margin-left: 0.5rem;
+    transition: transform 0.2s ease-in-out;
+}
+  
+.button:hover .icon {
+    transform: translateX(4px);
+}

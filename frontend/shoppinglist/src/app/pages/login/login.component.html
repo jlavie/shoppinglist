@@ -1,7 +1,13 @@
-<form (submit)="(routePath === 'register' ? register() : login())" [formGroup]="formGroup">
-    <fieldset class="fieldset border border-base-300 p-4 rounded-box">
-        <legend class="fieldset-legend">Login</legend>
+<form (submit)="(type() === 'register' ? register() : login())" [formGroup]="formGroup">
+    <h2 class="mb-8 text-3xl">{{title()}}</h2>
+    <div class="social-container">
+        <a href="" class="social"><i class="fab fa-facebook"></i></a>
+        <a href="" class="social"><i class="fab fa-google-plus-g"></i></a>
+        <a href="" class="social"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    <p class="mb-8">{{content()}}</p>
 
+    <div class="form-field mb-4">
         <label class="fieldset-label" for="email">Email</label>
         <input id="email" name="email" type="text" formControlName="email" class="input" />
         @if (isFieldValid('email')) {
@@ -9,15 +15,21 @@
                 <div class="error">This field is required.</div>
             }
         }
+    </div>
 
-        <label class="fieldset-label" for="username">Username</label>
-        <input id="username" name="username" type="text" formControlName="username" class="input" />
-        @if (isFieldValid('username')) {
-            @if (formGroup.get('username')?.hasError('required')) {
-                <div class="error">This field is required.</div>
+    @if(type() === 'register') {
+        <div class="form-field mb-4">
+            <label class="fieldset-label" for="username">Username</label>
+            <input id="username" name="username" type="text" formControlName="username" class="input" />
+            @if (isFieldValid('username')) {
+                @if (formGroup.get('username')?.hasError('required')) {
+                    <div class="error">This field is required.</div>
+                }
             }
-        }
+        </div>
+    }
 
+    <div class="form-field mb-4">
         <label class="fieldset-label" for="password">Password</label>
         <input id="password" name="password" type="password" formControlName="password" class="input" />
         @if (isFieldValid('password')) {
@@ -25,8 +37,8 @@
                 <div class="error">This field is required.</div>
             }
         }
+    </div>
 
-        <button class="btn btn-block" type="submit" [disabled]="formGroup.invalid">Save</button>
-        <!-- <button (click)="name.setValue('Changed')">Set Name</button> -->
-    </fieldset>
+    <button class="btn btn-block" type="submit" [disabled]="formGroup.invalid">Save</button>
+    <!-- <button (click)="name.setValue('Changed')">Set Name</button> -->
 </form>

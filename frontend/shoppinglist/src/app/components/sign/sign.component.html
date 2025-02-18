@@ -1,0 +1,29 @@
+<div class="container"  [class.right-panel-active]="rightPanelActive()">
+    <div class="form-container sign-up-container">
+        <app-login 
+            type="register"
+            [title]="registerTitle"
+            [content]="registerContent" 
+        />
+    </div>
+    <div class="form-container sign-in-container">
+        <app-login 
+            [title]="loginTitle"
+            [content]="loginContent" 
+        />
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h2 class="mb-8 text-3xl">S’identifier</h2>
+                <p class="mb-8">Merci de vous connecter avec vos informations personnelles</p>
+                <a app-button content="S'identifier" extraClass="button-white" (click)="togglePanel()"></a>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h2 class="mb-8 text-3xl">S’enregistrer</h2>
+                <p class="mb-8">Pour accéder au contenu, merci de vous enregistrer</p>
+                <a app-button content="S'identifier" extraClass="button-white" (click)="togglePanel()"></a>
+            </div>
+        </div>
+    </div>
+</div>

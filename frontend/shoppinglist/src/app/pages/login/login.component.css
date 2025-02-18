@@ -1,0 +1,19 @@
+:host {
+    height: 100%;
+    align-items: center;
+    display: flex;
+    text-align: center;
+    padding: 0 40px;
+}
+
+.form-field {
+    position: relative;
+}
+
+.error {
+    position: absolute;
+    font-size: var(--text-font-size-small);
+    color: var(--error-color);
+    top: 0;
+    right: 0;
+}
