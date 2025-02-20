@@ -1,0 +1,33 @@
+.badge {
+    color: var(--title-color);
+    border-radius: var(--medium-radius);
+    padding: 0 var(--space-small);
+    font-size: 10px;
+    line-height: 14px;
+    font-family: Inter, Verdana, Geneva, Tahoma, sans-serif;
+    border: unset;
+    background-color: unset;
+}
+
+.badge-primary {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    text-transform: uppercase;
+}
+
+.badge-white {
+    background-color: var(--white-color);
+}
+
+.badge-filled {
+    border: 1px solid var(--title-color);
+}
+
+i {
+    font-size: 16px;
+    transform: rotate(45deg);
+}
+
+.pointer {
+    cursor: pointer
+}

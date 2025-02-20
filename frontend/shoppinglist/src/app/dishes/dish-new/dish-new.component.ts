@@ -6,10 +6,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, throwError } from 'rxjs';
 import { Ingredient } from '../../ingredients/ingredient.model';
 import { IngredientsService } from '../../ingredients/ingredients.service';
+import { BadgeComponent } from "../../components/badge/badge.component";
 
 @Component({
   selector: 'app-dish-new',
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, BadgeComponent],
   templateUrl: './dish-new.component.html',
   styleUrl: './dish-new.component.css'
 })

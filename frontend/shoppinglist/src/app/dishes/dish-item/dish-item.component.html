@@ -29,16 +29,27 @@
         @if(showTitleOnly()) {
             <h2 class="text-md font-semibold rounded-lg shadow-lg p-1 pl-3 bg-gray-300 cursor-pointer">{{dishSignal().title}}</h2>
         } @else {
-            <!-- Image à gauche (prend toute la hauteur) -->
-            @if(dishSignal().image) {<img src="{{dishSignal().image}}" alt="Repas"
-            class="w-25 h-full object-cover rounded-l-xl">}
-        
-            <!-- Contenu texte à droite -->
-            <div class="flex-1 p-3">
-                <h2 class="text-lg font-semibold">{{dishSignal().title}}</h2>
-                <p class="text-gray-500 text-xs">
-                    <span class="badge badge-outline badge-info badge-xs">{{dishSignal().category}}</span>
-                </p>
+            <div class="dish-item">
+                @if(loginService.isLoggedIn()) {
+                    <div class="dish-update">
+                        <a href="dish/{{dishSignal()._id}}"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <i class="fa-regular fa-trash-can" (click)="onDelete(dishSignal())"></i>
+                    </div>
+                }
+    
+                @if(dishSignal().image) {
+                    <div class="dish-img">
+                        <img src="{{dishSignal().image}}" alt="Repas">
+                    </div>
+                }
+                <div class="dish-content">
+                    <div class="dish-badge">
+                        <app-badge customClass="badge-primary" content="{{dishSignal().category}}"></app-badge>
+                    </div>
+                    <div class="dish-title">
+                        <h2 class="text-lg font-semibold">{{dishSignal().title}}</h2>
+                    </div>
+                </div>
             </div>
         }
     }    

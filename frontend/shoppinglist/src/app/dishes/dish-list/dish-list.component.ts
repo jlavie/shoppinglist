@@ -17,8 +17,4 @@ export class DishListComponent implements OnInit {
   ngOnInit(): void {
     this.dishService.getAll();
   }
-
-  onDelete(dish: Dish) {
-    this.dishService.delete(dish._id);
-  }
 }

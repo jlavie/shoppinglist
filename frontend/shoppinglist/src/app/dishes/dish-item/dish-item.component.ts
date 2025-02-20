@@ -5,10 +5,12 @@ import { DishService } from '../dish.service';
 import { AdminComponent } from "../../pages/admin/admin.component";
 import { HeaderComponent } from "../../header/header.component";
 import { DishNewComponent } from "../dish-new/dish-new.component";
+import { BadgeComponent } from "../../components/badge/badge.component";
+import { LoginService } from '../../pages/login/login.service';
 
 @Component({
   selector: 'app-dish-item',
-  imports: [AdminComponent, HeaderComponent, DishNewComponent],
+  imports: [AdminComponent, HeaderComponent, DishNewComponent, BadgeComponent],
   templateUrl: './dish-item.component.html',
   styleUrl: './dish-item.component.css'
 })
@@ -18,6 +20,7 @@ export class DishItemComponent implements OnInit {
   private dishService = inject(DishService);
   params = this.route.snapshot.params;
   showTitleOnly = input();
+  loginService = inject(LoginService);
 
   @Input() set dish(value: Dish | null) {
     if(value) {
@@ -35,4 +38,10 @@ export class DishItemComponent implements OnInit {
         })
     }
   }
+
+  
+  onDelete(dish: Dish) {
+    this.dishService.delete(this.dishSignal()._id);
+  }
+
 }

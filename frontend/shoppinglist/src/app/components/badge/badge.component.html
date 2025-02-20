@@ -1,0 +1,6 @@
+<span [ngClass]="combinedClass()">
+    {{ content() }}
+    @if(iconClass()) {
+        <i class="{{iconClass()}}"></i>
+    }
+</span>

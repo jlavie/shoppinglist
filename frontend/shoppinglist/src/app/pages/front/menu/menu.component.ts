@@ -6,10 +6,11 @@ import { CdkDragDrop, CdkDropList, DragDropModule, moveItemInArray, transferArra
 import { Dish } from '../../../dishes/dish.model';
 import { WeeklyMenuService } from '../../../weekly-menu/weekly-menu.service';
 import { IngredientsShoppingListService } from '../../../ingredients/ingredients-shopping-list.service';
+import { HeaderComponent } from '../../../header/header.component';
 
 @Component({
   selector: 'app-menu',
-  imports: [DragDropModule, DishItemComponent, WeeklyMenuComponent, CdkDropList],
+  imports: [DragDropModule, DishItemComponent, WeeklyMenuComponent, CdkDropList, HeaderComponent],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
 })

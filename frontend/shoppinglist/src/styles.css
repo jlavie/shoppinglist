@@ -11,8 +11,9 @@
     --background-strong-color: #d9efff;
     --title-color: #2a4d69;
     --paragraph-color: #666666;
-    
+
     --error-color: #ff686b;
+    --error-color-dark: #ee6055;
     --success-color: #84dcc6;
     --info-color: #70d6ff;
 
@@ -26,12 +27,18 @@
     --title-font-family: Quicksand;
 
     --small-radius: 8px;
-    --large-radius: 20px;
+    --medium-radius: 12px;
+    --large-radius: 16px;
     
     --gradient: linear-gradient(to right, #A8DADC, #457B9D);
 
-    --padding-small: 8px;
-    --padding-medium: 16px
+    --padding-small: 6px;
+    --padding-medium: 12px;
+
+    --space-small: 6px;
+    --space-medium: 12px;
+    --space-large: 18px;
+    --space-xlarge: 24px;
 }
 
 html, body { height: 100%; }
