@@ -5,12 +5,14 @@ import { DishItemComponent } from '../dishes/dish-item/dish-item.component';
 import { Dish } from '../dishes/dish.model';
 import { WeeklyMenuService } from './weekly-menu.service';
 import { IngredientsShoppingListService } from '../ingredients/ingredients-shopping-list.service';
+import { ButtonComponent } from '../components/button/button.component';
 
 @Component({
   selector: 'app-weekly-menu',
   standalone: true,
   templateUrl: './weekly-menu.component.html',
-  imports: [CommonModule, CdkDropList, CdkDrag, DishItemComponent],
+  styleUrl: './weekly-menu.component.css',
+  imports: [CommonModule, CdkDropList, CdkDrag, DishItemComponent, ButtonComponent],
 })
 export class WeeklyMenuComponent {
   weeklyMenuService = inject(WeeklyMenuService);

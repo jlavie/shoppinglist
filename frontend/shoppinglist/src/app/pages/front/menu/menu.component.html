@@ -2,8 +2,8 @@
     <app-header header />
 </header>
 
-<div div class="mx-auto max-w-7xl grid sm:grid-cols-12 grid-cols-1 gap-4 m-3" cdkDropListGroup>
-    <div class="sm:col-span-12">
+<div div class="mx-auto max-w-7xl grid sm:grid-cols-12 grid-cols-1 gap-4 m-3 px-3" cdkDropListGroup>
+    <div class="sm:col-span-12 mb-58">
         <div cdkDropList 
             id="dishes-list"
             [cdkDropListData]="dishes()" 
@@ -19,9 +19,7 @@
             }
         </div>
     </div>
-    <div class="weekly-menu-container">
-        <app-weekly-menu />
-    </div>
+    <app-weekly-menu />
 </div>
 
 

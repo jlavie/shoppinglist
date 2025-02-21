@@ -1,38 +1,48 @@
-<div class="grid grid-cols-2 gap-3 p-3">
-    
-<!-- Menu de la semaine -->
-    <div class="grid gap-3">
+<div class="weekly-menu__wrapper">
+  <div class="weekly-menu__header">
+    <div class="weekly-menu__filter">
       <label for="start-day">Sélectionner le jour de départ :</label>
-      <input type="date" class="input" id="start-day" [value]="startDaySignal()" (change)="this.weeklyMenuService.updateStartDay($any($event.target).valueAsDate)" />
-    
-      @for (entry of weeklyMenuSignal(); track entry.day) {
-        <div class="p-3 bg-white rounded-lg shadow-lg">
-          <h3 class="text-md font-semibold mb-2">{{ entry.day }}</h3>
-          <div cdkDropList 
-            [cdkDropListData]="entry.dishes" 
-            (cdkDropListDropped)="drop($event, entry.day)" 
-            [id]="entry.day"
-            class="min-h-18 border-dashed border-2 border-gray-300 p-2 rounded-lg"
-            >
-            @for (dish of entry.dishes; track dish) {
-              <app-dish-item [dish]="dish" cdkDrag [showTitleOnly]="true"></app-dish-item>
-            }
-          </div>
-        </div>
-      }
+      <input type="date" class="input" id="start-day" [value]="startDaySignal()" (change)="this.weeklyMenuService.updateStartDay($any($event.target).valueAsDate)" />  
     </div>
-    <!-- Liste de courses -->
-    <div class="grid-cols-2 p-3 bg-gray-100 rounded-lg shadow-lg">
-      <h2 class="text-lg font-semibold mb-2">Liste de courses</h2>
-      <ul>
-        @for (item of ingredientsShoppingList.ingredientsShoppingList(); track item) {
-          <li class="flex justify-between p-2 bg-white rounded-lg shadow mb-1">
-            <span>{{ item.name }}</span>
-            <span class="font-bold">{{ item.quantity }}</span>
-          </li>
-        }
-      </ul>
+    <div class="weekly-menu__action">
+      <button app-button content="Consulter les ingrédients" class="ml-3"
+        extraClass="button-filled" onclick="shoppinglist_modal.showModal()"></button>
+      <button app-button content="Valider le menu" class="ml-3"
+        extraClass="button-primary"></button>
+      <a class="arrow disabled arrow-prev"></a>
+      <a class="arrow arrow-next"></a>
     </div>
   </div>
-  
-  
+  <div class="weekly-menu__calendar">
+    @for (entry of weeklyMenuSignal(); track entry.day) {
+      <div class="weekly-menu__day">
+        <h3 class="weekly-menu__day__title">{{ entry.day }}</h3>
+        <div cdkDropList 
+          [cdkDropListData]="entry.dishes" 
+          (cdkDropListDropped)="drop($event, entry.day)" 
+          [id]="entry.day"
+          class="weekly-menu__day__dishes"
+          >
+          @for (dish of entry.dishes; track dish) {
+            <app-dish-item [dish]="dish" cdkDrag [showTitleOnly]="true"></app-dish-item>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+<dialog #shoppingListModal id="shoppinglist_modal" class="modal">
+  <h2 class="text-lg font-semibold mb-2">Liste de courses</h2>
+    <ul>
+      @for (item of ingredientsShoppingList.ingredientsShoppingList(); track item) {
+        <li class="flex justify-between p-2 bg-white rounded-lg shadow mb-1">
+          <span>{{ item.name }}</span>
+          <span class="font-bold">{{ item.quantity }}</span>
+        </li>
+      }
+    </ul>
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>

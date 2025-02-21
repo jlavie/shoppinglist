@@ -8,6 +8,11 @@
     width: 100%;
 }
 
+:host-context(.weekly-menu__day__dishes) {
+    background-color: unset;
+    box-shadow: unset;
+}
+
 .dish-update {
     position: absolute;
     width: 100%;
@@ -39,7 +44,7 @@
 }
 
 .dish-item:hover .dish-update {
-    height: 150px;
+    height: 120px;
     opacity: 1;
 }
 
@@ -53,7 +58,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 150px;
+    height: 120px;
     overflow: hidden; /* for Firefox */
     margin: 0 auto;
 }
@@ -70,7 +75,7 @@
 
 .dish-title {
     h2 {
-        font-size: var(--h3-font-size);
+        font-size: var(--h4-font-size);
         font-family: var(--title-font-family);
     }
 }

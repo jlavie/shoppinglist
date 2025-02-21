@@ -27,7 +27,7 @@
 } @else {
     @if(dishSignal()) {
         @if(showTitleOnly()) {
-            <h2 class="text-md font-semibold rounded-lg shadow-lg p-1 pl-3 bg-gray-300 cursor-pointer">{{dishSignal().title}}</h2>
+            <h2 class="text-md p-1 pl-3 cursor-pointer">{{dishSignal().title}}</h2>
         } @else {
             <div class="dish-item">
                 @if(loginService.isLoggedIn()) {

@@ -18,6 +18,16 @@
     background-color: var(--secondary-color-hover);
 }
 
+.button-filled {
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.button-filled:hover {
+    border: 1px solid var(--secondary-color-hover);
+    color: var(--secondary-color-hover);
+}
+
 .button-white {
     border: 1px solid var(--white-color);
     color: var(--white-color);
